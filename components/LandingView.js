@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button} from 'react-native';
 
 
 export default class LandingView extends Component {
@@ -11,9 +11,9 @@ export default class LandingView extends Component {
         return (
             <View style={styles.container}>
                 <Button
-                    title="Continue With Facebook"
+                    title="Continue With Spotify"
                     onPress={() =>
-                        navigate('AccountSetupView', { name: 'Jane' })
+                        navigate('AuthenticateSpotifyView')
                     }
                 />
             </View>
