@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableHighlight, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableHighlight, Image, TouchableOpacity } from 'react-native';
 import SortableListView from 'react-native-sortable-listview'
+
 
 let data = {
     1: { name: "Mardy Bum", artists: "Arctic Monkeys", image: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Whatever_People_Say_I_Am%2C_That%27s_What_I%27m_Not.jpg/220px-Whatever_People_Say_I_Am%2C_That%27s_What_I%27m_Not.jpg" },
@@ -43,10 +44,48 @@ class RowComponent extends Component {
 }
 
 class ListeningRoom extends Component {
+    constructor() {
+        super()
+        this.state = {
+            isPlaying: true
+        }
+        this.changeIcon = this.changeIcon.bind(this)
+        this.nextSong = this.nextSong.bind(this)
+        this.previousSong = this.previousSong.bind(this)
+    }
+    changeIcon() {
+        this.setState({ isPlaying: !this.state.isPlaying })
+    }
+    nextSong() {
+
+    }
+    previousSong() {
+
+    }
     render() {
         return (
             <React.Fragment>
-                <Button title="submit" style={{ flex: 1, alignItems: "end" }}></Button>
+                <View style={{ flex: 1 / 4, flexDirection: "row" }}>
+                    <View style={{
+                        flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-end"
+                    }}>
+                        < TouchableOpacity onPress={this.previousSong}>
+                            <Image
+                                source={require(`./public/previous.png`)} style={{ width: 60, height: 60 }}
+                            />
+                        </TouchableOpacity>
+                        < TouchableOpacity onPress={this.changeIcon}>
+                            <Image
+                                source={this.state.isPlaying ? require(`./public/play.png`) : require(`./public/pause.png`)} style={{ width: 60, height: 60 }}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.nextSong}>
+                            <Image
+                                source={require(`./public/next.png`)} style={{ width: 60, height: 60 }}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View >
                 <SortableListView
                     style={{ flex: 1 }}
                     data={data}
@@ -57,34 +96,15 @@ class ListeningRoom extends Component {
                     }}
                     renderRow={row => <RowComponent data={row} />}
                 />
-            </React.Fragment>
+                <Button title="submit" style={{ alignSelf: "flex-end" }}></Button>
+
+            </React.Fragment >
 
         )
     }
 }
 
 export default ListeningRoom
-
-
-// export default class ListeningRoom extends Component {
-//     static navigationOptions = {
-//         // title: 'Profile Screen',
-//     };
-//     render() {
-//         const { navigate } = this.props.navigation;
-//         return (
-//             <View style={styles.container}>
-//                 <Button
-//                     title="Continue With Facebook"
-//                     onPress={() =>
-//                         navigate('AccountSetupView', { name: 'Jane' })
-//                     }
-//                 />
-//             </View>
-//         );
-//     }
-
-// }
 
 const styles = StyleSheet.create({
     container: {
