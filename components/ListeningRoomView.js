@@ -65,10 +65,13 @@ class ListeningRoom extends Component {
     render() {
         return (
             <React.Fragment>
-                <View style={{ flex: 1 / 4, flexDirection: "row" }}>
-                    <View style={{
-                        flex: 1, flexDirection: "row", justifyContent: "flex-end", alignItems: "flex-end"
-                    }}>
+                <View style={styles.upperContainer}>
+                    <View style={styles.upperContainerSuperContainer}>
+
+                    </View>
+                    <View style={styles.upperContainerSubContainer}>
+                        <Text>Current Artist</Text>
+
                         < TouchableOpacity onPress={this.previousSong}>
                             <Image
                                 source={require(`./public/previous.png`)} style={{ width: 60, height: 60 }}
@@ -87,7 +90,7 @@ class ListeningRoom extends Component {
                     </View>
                 </View >
                 <SortableListView
-                    style={{ flex: 1 }}
+                    style={styles.lowerContainer}
                     data={data}
                     order={order}
                     onRowMoved={e => {
@@ -107,10 +110,17 @@ class ListeningRoom extends Component {
 export default ListeningRoom
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    upperContainer: {
+        flex: 1 / 5,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
+    upperContainerSubContainer: {
+        flex: 1 / 2, flexDirection: "row", justifyContent: "flex-end"
+    },
+    upperContainerSuperContainer: {
+        flex: 1 / 2, justifyContent: "flex-start"
+    },
+    lowerContainer: {
+        flex: 1
+    }
 });
