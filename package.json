@@ -27,6 +27,7 @@
     "react-native-cli": "^2.0.1",
     "react-native-elements": "^0.19.1",
     "react-native-fbsdk": "^0.7.0",
+    "react-native-sortable-listview": "^0.2.8",
     "react-navigation": "^2.9.3"
   }
 }

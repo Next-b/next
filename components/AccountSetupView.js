@@ -18,7 +18,7 @@ export default class AccountSetupView extends Component {
                 <Button
                     title="Next"
                     onPress={() =>
-                        navigate('ConnectSpotifyView', { name: 'Jane' })
+                        navigate('ListeningRoomView', { name: 'Jane' })
                     }
                 />
             </View>

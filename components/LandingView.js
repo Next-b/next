@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 
-export default class LandingView extends React.Component {
+export default class LandingView extends Component {
     static navigationOptions = {
         // title: 'Profile Screen',
     };
