@@ -1,11 +1,4 @@
-/**
- * This is an example of a basic node.js script that performs
- * the Authorization Code oAuth2 flow to authenticate against
- * the Spotify Accounts.
- *
- * For more information, read
- * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
- */
+var User = require('../db/users');
 
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
@@ -18,6 +11,7 @@ var client_secret = 'b3009d0a8b104adeb77d2efcadf27c89'; // Your secret
 var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 
 var app = express();
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -39,8 +33,7 @@ app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
 
-
-
+   
 //handle user login request
 app.get('/login', function(req, res) {
 
@@ -48,7 +41,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   //request authorization to access data
-  var scope = 'user-read-private user-read-email'; //request authorization to access {fullname, profile image, email address}
+  var scope = 'user-read-private user-read-email user-follow-modify user-read-currently-playing user-top-read user-follow-read user-read-playback-state'; 
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -102,6 +95,23 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
+          const exists = User.find({where: {email: body.email}});
+          if(exists){
+            User.destroy({
+              where: {email: body.email}
+            })
+          }
+      
+          User.create({
+            display_name: body.display_name,
+            email: body.email,
+            external_urls: body.external_urls.spotify,
+            spotifyId: body.id,
+            image: body.images[0].url,
+            href: body.href,
+            uri: body.uri,
+        
+          })
           console.log(body);
         });
 
