@@ -5,8 +5,7 @@
   "devDependencies": {
     "react-native-scripts": "1.14.0",
     "jest-expo": "~27.0.0",
-    "react-test-renderer": "16.3.1",
-    "spotify-web-api-js": "^0.22.1"
+    "react-test-renderer": "16.3.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -21,13 +20,6 @@
   },
   "dependencies": {
     "expo": "^27.0.1",
-
-    "pg": "^7.4.3",
-    "pg-hstore": "^2.3.2",
-    "react": "16.3.1",
-    "react-native": "~0.55.2",
-    "sequelize": "^4.38.0"
-
     "install": "^0.12.1",
     "link": "^0.1.5",
     "react": "16.3.1",
@@ -36,6 +28,5 @@
     "react-native-elements": "^0.19.1",
     "react-native-fbsdk": "^0.7.0",
     "react-navigation": "^2.9.3"
-
   }
 }
