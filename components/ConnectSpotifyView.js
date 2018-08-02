@@ -13,7 +13,7 @@ export default class ConnectSpotifyView extends Component {
                 <Button
                     title="Connect Spotify"
                     onPress={() =>
-                        console.log("Spotify OAuth functionality here")
+                        navigate('AccountSetupView', { name: 'Jane' })
                     }
                 />
             </View>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { LandingView, AccountSetupView, ConnectSpotifyView } from "./components"
+import { LandingView, AccountSetupView, ConnectSpotifyView, ListeningRoomView } from "./components"
 import { createStackNavigator } from 'react-navigation';
 
 const App = createStackNavigator({
-  Home: { screen: LandingView },
+  ConnectSpotifyView: { screen: ConnectSpotifyView },
   AccountSetupView: { screen: AccountSetupView },
-  ConnectSpotifyView: { screen: ConnectSpotifyView }
+  ListeningRoomView: { screen: ListeningRoomView }
 });
 
 export default App;
