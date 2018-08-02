@@ -3,9 +3,6 @@ import { StyleSheet, Text, View, Button, TouchableHighlight, Image, TouchableOpa
 import SortableListView from 'react-native-sortable-listview'
 import RowComponent, { data } from "./RowComponent"
 
-let order = Object.keys(data) //Array of keys
-
-
 class ListeningRoom extends Component {
     constructor() {
         super()
@@ -55,7 +52,7 @@ class ListeningRoom extends Component {
                 <SortableListView
                     style={styles.lowerContainer}
                     data={data}
-                    order={order}
+                    order={Object.keys(data)}
                     onRowMoved={e => {
                         order.splice(e.to, 0, order.splice(e.from, 1)[0])
                         this.forceUpdate()
