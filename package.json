@@ -19,15 +19,20 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
     "expo": "^27.0.1",
+    "express": "^4.16.3",
     "install": "^0.12.1",
     "link": "^0.1.5",
+    "querystring": "^0.2.0",
     "react": "16.3.1",
     "react-native": "^0.55.4",
     "react-native-cli": "^2.0.1",
     "react-native-elements": "^0.19.1",
     "react-native-fbsdk": "^0.7.0",
     "react-native-sortable-listview": "^0.2.8",
-    "react-navigation": "^2.9.3"
+    "react-navigation": "^2.9.3",
+    "request": "^2.87.0"
   }
 }
