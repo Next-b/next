@@ -30,7 +30,6 @@ class ListeningRoom extends Component {
     }
     retrieveData(itemsRef) {
         itemsRef.on('value', function (songList) {
-            const that = this
             const songData = {}
             songList.forEach(function (song) {
                 const songVal = song.val()
@@ -41,7 +40,7 @@ class ListeningRoom extends Component {
                 }
             })
             console.log("songData,", songData)
-            that.setState({ data: songData })
+            // this.setState({ data: songData })
         }, (error) => {
             console.error(error)
         })
