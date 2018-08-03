@@ -11,19 +11,22 @@ class ListeningRoom extends Component {
             data: {},
             isPlaying: true
         }
-        this.changeIcon = this.changeIcon.bind(this)
+        this.playPause = this.playPause.bind(this)
         this.nextSong = this.nextSong.bind(this)
         this.previousSong = this.previousSong.bind(this)
         this.retrieveData = this.retrieveData.bind(this)
         this.addData = this.addData.bind(this)
     }
-    changeIcon() {
+    playPause() {
+        //trigger play song in spotify api
         this.setState({ isPlaying: !this.state.isPlaying })
     }
     nextSong() {
+        //sends song data to spotify api
         return
     }
     previousSong() {
+        //sends song data to spotify api
         return
     }
     retrieveData() {
@@ -57,7 +60,7 @@ class ListeningRoom extends Component {
                                 source={require(`./public/previous.png`)} style={{ width: 60, height: 60 }}
                             />
                         </TouchableOpacity>
-                        < TouchableOpacity onPress={this.changeIcon}>
+                        < TouchableOpacity onPress={this.playPause}>
                             <Image
                                 source={this.state.isPlaying ? require(`./public/play.png`) : require(`./public/pause.png`)} style={{ width: 60, height: 60 }}
                             />
