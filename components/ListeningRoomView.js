@@ -29,7 +29,6 @@ class ListeningRoom extends Component {
         return
     }
     retrieveData(itemsRef) {
-        console.log("itemsRef:", this.itemsRef)
         itemsRef.on('value', (songList) => {
             const songData = {}
             songList.forEach((song) => {
@@ -40,7 +39,6 @@ class ListeningRoom extends Component {
                     image: songVal.image,
                 }
             })
-            console.log("songData,", songData)
             this.setState({ data: songData })
             return songData
         }, (error) => {
