@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "next-68d1f"
+    "default": "next-68d1f",
+    "Next": "next-68d1f"
   }
 }
