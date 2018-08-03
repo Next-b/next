@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TouchableHighlight, Image, TouchableOpacity } from 'react-native';
 import SortableListView from 'react-native-sortable-listview'
 import RowComponent from "./RowComponent"
-import firebaseApp from "../server/fireBase"
-import * as firebase from 'firebase';
+import firestore from "../server/fireBase"
 
 class ListeningRoom extends Component {
     constructor() {
@@ -16,42 +15,35 @@ class ListeningRoom extends Component {
         this.nextSong = this.nextSong.bind(this)
         this.previousSong = this.previousSong.bind(this)
         this.retrieveData = this.retrieveData.bind(this)
-        this.itemsRef = firebaseApp.database().ref("songs")
+        this.addData = this.addData.bind(this)
     }
     changeIcon() {
         this.setState({ isPlaying: !this.state.isPlaying })
     }
     nextSong() {
-        console.log(this.state.data)
         return
     }
     previousSong() {
         return
     }
-    retrieveData(itemsRef) {
-        itemsRef.on('value', (songList) => {
+    retrieveData() {
+        firestore.collection("songs").get().then((songList) => {
             const songData = {}
             songList.forEach((song) => {
-                const songVal = song.val()
-                songData[song.key] = {
-                    name: songVal.name,
-                    artist: songVal.artist,
-                    image: songVal.image,
-                }
+                const songVal = song.data()
+                console.log("songVal", songVal)
+                songData[song.key] = songVal
             })
             this.setState({ data: songData })
-            return songData
-        }, (error) => {
-            console.log(error)
-        })
+        });
+    }
+    addData(obj) {
+        firestore.collection("songs").add(obj)
     }
     componentDidMount() {
-        this.retrieveData(this.itemsRef)
-
-
+        this.retrieveData()
     }
     render() {
-        console.log("render triggered. state is:", this.state.data)
         return (
             <React.Fragment>
                 <View style={styles.upperContainer}>
