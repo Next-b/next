@@ -16,13 +16,16 @@ export default class AuthenticateSpotifyView extends Component {
     //     <WebView source={{uri: 'https://google.com/'}} style={{flex:1}} />
     //   </View>
     // )
+    // return (
+    //   <View style={styles.container}>
+    //     <WebView
+    //       source={{ uri: 'http://localhost:8888' }}
+    //       style={styles.page}
+    //     />
+    //   </View>
+    // )
     return (
-      <View style={styles.container}>
-        <WebView
-          source={{ uri: 'http://localhost:8888' }}
-          style={styles.page}
-        />
-      </View>
+      
     )
   }
 }
