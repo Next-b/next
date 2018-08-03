@@ -1,4 +1,6 @@
 import * as firebase from 'firebase';
+require("firebase/firestore")
+const settings = { timestampsInSnapshots: true };
 
 const firebaseConfig = {
     apiKey: "AIzaSyDKux4Xq8zFhuLaNySnG4fcsjuA5pZVFSM",
@@ -8,6 +10,9 @@ const firebaseConfig = {
     storageBucket: "next-68d1f.appspot.com",
     messagingSenderId: "1092618924525"
 };
-export default firebase.initializeApp(firebaseConfig);
 
+
+const firestore = firebase.initializeApp(firebaseConfig).firestore()
+firestore.settings(settings)
+export default firestore
 
