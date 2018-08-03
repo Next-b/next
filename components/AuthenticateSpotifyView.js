@@ -10,24 +10,25 @@ export default class AuthenticateSpotifyView extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    // return (
-    //   <View style={styles.container}>
-    //     <Text>Testing</Text>
-    //     <WebView source={{uri: 'https://google.com/'}} style={{flex:1}} />
-    //   </View>
-    // )
-    return (
-      <View style={styles.container}>
-        <WebView
-          source={{ uri: 'http://localhost:8888' }}
-          style={styles.page}
-        />
-      </View>
-    )
+  //   // return (
+  //   //   <View style={styles.container}>
+  //   //     <Text>Testing</Text>
+  //   //     <WebView source={{uri: 'https://google.com/'}} style={{flex:1}} />
+  //   //   </View>
+  //   // )
+  //   return (
+  //     <View style={styles.container}>
+  //       <WebView
+  //         source={{ uri: 'http://localhost:8888' }}
+  //         style={styles.page}
+  //       />
+  //     </View>
+  //   )
+  // }
   }
 }
 
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
