@@ -13,7 +13,6 @@ import * as firebase from "../server/fireBase"
 export default class RowComponent extends Component {
     constructor() {
         super()
-        this.itemsRef = firebase.database().ref("/songs");
     }
     render() {
         return (
