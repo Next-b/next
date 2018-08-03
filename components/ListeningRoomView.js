@@ -1,28 +1,56 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TouchableHighlight, Image, TouchableOpacity } from 'react-native';
 import SortableListView from 'react-native-sortable-listview'
-import RowComponent, { data } from "./RowComponent"
+import RowComponent from "./RowComponent"
+import firebaseApp from "../server/fireBase"
+import * as firebase from 'firebase';
 
 class ListeningRoom extends Component {
     constructor() {
         super()
         this.state = {
+            data: {},
             isPlaying: true
         }
         this.changeIcon = this.changeIcon.bind(this)
         this.nextSong = this.nextSong.bind(this)
         this.previousSong = this.previousSong.bind(this)
+        this.retrieveData = this.retrieveData.bind(this)
+        this.itemsRef = firebaseApp.database().ref("songs")
     }
     changeIcon() {
         this.setState({ isPlaying: !this.state.isPlaying })
     }
     nextSong() {
-
+        console.log(this.state.data)
+        return
     }
     previousSong() {
-
+        return
+    }
+    retrieveData(itemsRef) {
+        itemsRef.on('value', function (songList) {
+            const that = this
+            const songData = {}
+            songList.forEach(function (song) {
+                const songVal = song.val()
+                songData[song.key] = {
+                    name: songVal.name,
+                    artist: songVal.artist,
+                    image: songVal.image,
+                }
+            })
+            console.log("songData,", songData)
+            that.setState({ data: songData })
+        }, (error) => {
+            console.error(error)
+        })
+    }
+    componentDidMount() {
+        this.retrieveData(this.itemsRef)
     }
     render() {
+        console.log("render triggered. state is:", this.state.data)
         return (
             <React.Fragment>
                 <View style={styles.upperContainer}>
@@ -31,7 +59,6 @@ class ListeningRoom extends Component {
                     </View>
                     <View style={styles.upperContainerSubContainer}>
                         <Text>Current Artist</Text>
-
                         < TouchableOpacity onPress={this.previousSong}>
                             <Image
                                 source={require(`./public/previous.png`)} style={{ width: 60, height: 60 }}
@@ -51,18 +78,15 @@ class ListeningRoom extends Component {
                 </View >
                 <SortableListView
                     style={styles.lowerContainer}
-                    data={data}
-                    order={Object.keys(data)}
+                    data={this.state.data}
+                    order={Object.keys(this.state.data)}
                     onRowMoved={e => {
                         order.splice(e.to, 0, order.splice(e.from, 1)[0])
                         this.forceUpdate()
                     }}
                     renderRow={row => <RowComponent data={row} />}
                 />
-                <Button title="submit" style={{ alignSelf: "flex-end" }}></Button>
-
             </React.Fragment >
-
         )
     }
 }

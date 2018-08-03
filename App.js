@@ -4,12 +4,12 @@ import { LandingView, AccountSetupView, ConnectSpotifyView, ListeningRoomView, A
 import { createStackNavigator } from 'react-navigation';
 
 const App = createStackNavigator({
-  LandingView: {screen: LandingView},
-  AuthenticateSpotifyView: {screen: AuthenticateSpotifyView},
-  ConnectSpotifyView: { screen: ConnectSpotifyView },
-  AccountSetupView: { screen: AccountSetupView },
+  // LandingView: { screen: LandingView },
+  // AuthenticateSpotifyView: { screen: AuthenticateSpotifyView },
+  // ConnectSpotifyView: { screen: ConnectSpotifyView },
+  // AccountSetupView: { screen: AccountSetupView },
   ListeningRoomView: { screen: ListeningRoomView }
-  
+
 });
 
 export default App;

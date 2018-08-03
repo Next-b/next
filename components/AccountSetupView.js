@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, Image } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import firebaseApp from "../server/fireBase"
 
 export default class AccountSetupView extends Component {
     static navigationOptions = {

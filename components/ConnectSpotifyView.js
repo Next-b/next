@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import firebaseApp from "../server/fireBase"
 
 
 export default class ConnectSpotifyView extends Component {
