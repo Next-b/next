@@ -29,9 +29,9 @@ class ListeningRoom extends Component {
         return
     }
     retrieveData(itemsRef) {
-        itemsRef.on('value', function (songList) {
+        itemsRef.on('value', (songList) => {
             const songData = {}
-            songList.forEach(function (song) {
+            songList.forEach((song) => {
                 const songVal = song.val()
                 songData[song.key] = {
                     name: songVal.name,
@@ -39,14 +39,16 @@ class ListeningRoom extends Component {
                     image: songVal.image,
                 }
             })
-            console.log("songData,", songData)
-            // this.setState({ data: songData })
+            this.setState({ data: songData })
+            return songData
         }, (error) => {
-            console.error(error)
+            console.log(error)
         })
     }
     componentDidMount() {
         this.retrieveData(this.itemsRef)
+
+
     }
     render() {
         console.log("render triggered. state is:", this.state.data)
