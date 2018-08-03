@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Image } from 'react-native';
-import * as firebase from "../server/fireBase"
 
 export default class RowComponent extends Component {
     render() {
