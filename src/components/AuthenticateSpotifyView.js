@@ -81,6 +81,12 @@
 import React, { Component } from 'react';
 import { Button, Text, View, StyleSheet } from 'react-native';
 import { Constants, WebBrowser, Linking, AuthSession } from 'expo';
+import axios from "axios"
+import { Base64 } from 'js-base64';
+import { Buffer } from "buffer"
+import qs from 'qs';
+
+
 // import { url } from 'inspector';
 
 export default class App extends Component {
@@ -95,29 +101,40 @@ export default class App extends Component {
         <Button
           style={styles.paragraph}
           title="Connect Spotify"
-          onPress={this._handlePressButtonAsync}
+          onPress={this.retrieveAccessToken}
         />
         <Text>{this.state.resultOne && JSON.stringify(this.state.resultOne)}</Text>
       </View>
     );
   }
 
-  _handlePressButtonAsync = async () => {
+  retrieveAccessToken = async () => {
     let redirectUrl = "exp://expo.io/@alanyoho/next"
     let resultOne = await AuthSession.startAsync({
       authUrl: `https://accounts.spotify.com/authorize?response_type=code` + `&client_id=f51009c9ffae4a90bc7a1364f46bb2fb` + `&scope=${encodeURIComponent("user-read-private user-read-email app-remote-control")}` + `&redirect_uri=${encodeURIComponent(redirectUrl)}`
     })
-    if (resultOne) {
-      this.setState({ resultOne });
-      let resultTwo = await fetch("https://accounts.spotify.com/api/token", {
-        method: "POST",
+    this.setState({ resultOne });
+    try {
+      let code = `${this.state.resultOne.params.code}`
+      const returnData = await axios({
+        method: "post",
+        url: "https://accounts.spotify.com/api/token",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: JSON.stringify({ grant_type: "authorization_code", code: resultOne.params.code, redirect_uri: redirectUrl, client_id: "f51009c9ffae4a90bc7a1364f46bb2fb", client_secret: "b5f81a8017144d80bc2e499b21a68e10" })
+        data: qs.stringify({
+          grant_type: "authorization_code",
+          code: code,
+          redirect_uri: redirectUrl,
+          client_id: "f51009c9ffae4a90bc7a1364f46bb2fb",
+          client_secret: "b5f81a8017144d80bc2e499b21a68e10"
+        }),
       })
-      console.log("resultTwo:", resultTwo)
+      this.setState({ resultTwo: returnData.data })
+    } catch (error) {
+      console.log("error: ", error)
     }
+    console.log(this.state)
   };
 }
 
