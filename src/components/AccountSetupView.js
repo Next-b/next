@@ -20,7 +20,7 @@ export default class AccountSetupView extends Component {
         })
         this.input.focus()
     }
-    handlePress() {
+    handlePress = () => {
         const { navigate } = this.props.navigation;
         navigate('ListeningRoomView')
     }
