@@ -22,11 +22,12 @@ export default class AccountSetupView extends Component {
     }
     handlePress = () => {
         const { navigate } = this.props.navigation;
-        navigate('ListeningRoomView')
+        navigate('FindCreateListeningRoomView')
     }
 
     render() {
         return (
+
             <View style={{ flex: 1 }}>
                 <View style={styles.container}>
                     <Image style={styles.avatar}

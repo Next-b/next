@@ -9,8 +9,8 @@ export default class App extends Component {
     super()
     this.state = {
       fontLoaded: false,
-      resultOne: "",
-      resultTwo: "",
+      resultOne: "", //GET
+      resultTwo: "", //
       userData: {}
     };
     this.handlePress = this.handlePress.bind(this)
@@ -31,7 +31,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         {this.state.fontLoaded && (
-          <Text style={styles.text} onPress={this.handlePress} >Connect Spotify</Text>
+          <Text style={styles.text} onPress={this.handlePress}>Connect Spotify</Text>
 
         )}
         <Image
