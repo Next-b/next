@@ -2,8 +2,8 @@ import { AccountSetupView, ListeningRoomView, AuthenticateSpotifyView } from "./
 import { createStackNavigator } from 'react-navigation';
 
 const App = createStackNavigator({
-  AuthenticateSpotifyView: { screen: AuthenticateSpotifyView },
-  AccountSetupView: { screen: AccountSetupView },
+  // AuthenticateSpotifyView: { screen: AuthenticateSpotifyView },
+  // AccountSetupView: { screen: AccountSetupView },
   ListeningRoomView: { screen: ListeningRoomView }
 
 });
