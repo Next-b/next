@@ -33,7 +33,7 @@ export default class AccountSetupView extends Component {
                 <Button
                     title="Next"
                     onPress={() =>
-                        navigate('ListeningRoomView', { name: 'Jane' })
+                        navigate('FindCreateListeningRoomView', { name: 'Jane' })
                     }
                 />
             </View>

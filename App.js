@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Linking } from 'react-native';
-import { LandingView, AccountSetupView, ConnectSpotifyView, ListeningRoomView, AuthenticateSpotifyView } from "./src/components"
+import { LandingView, AccountSetupView, ConnectSpotifyView, ListeningRoomView, AuthenticateSpotifyView, FindCreateListeningRoomView } from "./src/components"
 import { createStackNavigator } from 'react-navigation';
 
 const App = createStackNavigator({
@@ -8,7 +8,8 @@ const App = createStackNavigator({
   AuthenticateSpotifyView: { screen: AuthenticateSpotifyView },
   ConnectSpotifyView: { screen: ConnectSpotifyView },
   AccountSetupView: { screen: AccountSetupView },
-  ListeningRoomView: { screen: ListeningRoomView }
+  ListeningRoomView: { screen: ListeningRoomView },
+  FindCreateListeningRoomView: {screen: FindCreateListeningRoomView}
 
 });
 
