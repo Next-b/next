@@ -81,10 +81,12 @@
 import React, { Component } from 'react';
 import { Button, Text, View, StyleSheet } from 'react-native';
 import { Constants, WebBrowser, Linking, AuthSession } from 'expo';
+// import { url } from 'inspector';
 
 export default class App extends Component {
   state = {
-    result: null,
+    resultOne: null,
+    resultTwo: null
   };
 
   render() {
@@ -95,18 +97,27 @@ export default class App extends Component {
           title="Connect Spotify"
           onPress={this._handlePressButtonAsync}
         />
-        <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
+        <Text>{this.state.resultOne && JSON.stringify(this.state.resultOne)}</Text>
       </View>
     );
   }
 
   _handlePressButtonAsync = async () => {
     let redirectUrl = "exp://expo.io/@alanyoho/next"
-    let result = await AuthSession.startAsync({
+    let resultOne = await AuthSession.startAsync({
       authUrl: `https://accounts.spotify.com/authorize?response_type=code` + `&client_id=f51009c9ffae4a90bc7a1364f46bb2fb` + `&scope=${encodeURIComponent("user-read-private user-read-email app-remote-control")}` + `&redirect_uri=${encodeURIComponent(redirectUrl)}`
     })
-    console.log("result: ", result)
-    this.setState({ result });
+    if (resultOne) {
+      this.setState({ resultOne });
+      let resultTwo = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: JSON.stringify({ grant_type: "authorization_code", code: resultOne.params.code, redirect_uri: redirectUrl, client_id: "f51009c9ffae4a90bc7a1364f46bb2fb", client_secret: "b5f81a8017144d80bc2e499b21a68e10" })
+      })
+      console.log("resultTwo:", resultTwo)
+    }
   };
 }
 
