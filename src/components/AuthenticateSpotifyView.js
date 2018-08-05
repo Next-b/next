@@ -1,65 +1,121 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, WebView } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+// import React, { Component } from 'react';
+// import { StyleSheet, Text, View, Button, WebView, Linking } from 'react-native';
+// import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
-export default class AuthenticateSpotifyView extends Component {
-  static navigationOptions = {
-    title: 'Log in with Spotify',
-  }
 
-  render() {
-    const { navigate } = this.props.navigation;
-    //   // return (
-    //   //   <View style={styles.container}>
-    //   //     <Text>Testing</Text>
-    //   //     <WebView source={{uri: 'https://google.com/'}} style={{flex:1}} />
-    //   //   </View>
-    //   // )
-    //   return (
-    //     <View style={styles.container}>
-    //       <WebView
-    //         source={{ uri: 'http://localhost:8888' }}
-    //         style={styles.page}
-    //       />
-    //     </View>
-    //   )
-    // }
-  }
-}
 
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatar: {
-    width: 130,
-    height: 130,
-    borderRadius: 63,
-    borderWidth: 4,
-    borderColor: "white",
-    marginBottom: 10,
-  },
-  page: {
-    marginTop: 40,
-    width: 340,
-    flex: 1
-  }
-});
 
-// const styles = StyleSheet.create({
+
+// export default class AuthenticateSpotifyView extends Component {
+//   static navigationOptions = {
+//     title: 'Log in with Spotify',
+//   }
+//   componentDidMount() {
+//     var url = "next://next-b"
+//     Linking.canOpenURL(url).then(supported => {
+//       if (!supported) {
+//         console.log('Cant handle url: ' + url);
+//       } else {
+//         return Linking.openURL(url);
+//       }
+//     }).catch(err => console.error('An error occurred', err));
+
+//   }
+//   render() {
+
+//     const { navigate } = this.props.navigation;
+//     const url = 'https://accounts.spotify.com/authorize?client_id=f51009c9ffae4a90bc7a1364f46bb2fb&response_type=code&' + 'redirect_uri=' + encodeURIComponent("next://next-b") + 'scope=' + encodeURIComponent("user-read-private user-read-email")
+
+//     console.log(url)
+//     return (
+//       <View style={styles.container}>
+//         <WebView
+//           source={{ uri: url }}
+//           style={styles.page}
+//         />
+//       </View>
+//     )
+//   }
+// }
+
+
+
+// var styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
+//     backgroundColor: '#fff',
 //     alignItems: 'center',
-//     justifyContent: 'space-between',
-
+//     justifyContent: 'center',
 //   },
-//   video: {
-//     marginTop: 20,
-//     maxHeight: 200,
-//     width: 320,
+//   avatar: {
+//     width: 130,
+//     height: 130,
+//     borderRadius: 63,
+//     borderWidth: 4,
+//     borderColor: "white",
+//     marginBottom: 10,
+//   },
+//   page: {
+//     marginTop: 40,
+//     width: 340,
 //     flex: 1
 //   }
 // });
+
+// // const styles = StyleSheet.create({
+// //   container: {
+// //     flex: 1,
+// //     alignItems: 'center',
+// //     justifyContent: 'space-between',
+
+// //   },
+// //   video: {
+// //     marginTop: 20,
+// //     maxHeight: 200,
+// //     width: 320,
+// //     flex: 1
+// //   }
+// // });
+
+
+import React, { Component } from 'react';
+import { Button, Text, View, StyleSheet } from 'react-native';
+import { Constants, WebBrowser, Linking, AuthSession } from 'expo';
+
+export default class App extends Component {
+  state = {
+    result: null,
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Button
+          style={styles.paragraph}
+          title="Connect Spotify"
+          onPress={this._handlePressButtonAsync}
+        />
+        <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
+      </View>
+    );
+  }
+
+  _handlePressButtonAsync = async () => {
+    let redirectUrl = "exp://expo.io/@alanyoho/next"
+    let result = await AuthSession.startAsync({
+      authUrl: `https://accounts.spotify.com/authorize?response_type=code` + `&client_id=f51009c9ffae4a90bc7a1364f46bb2fb` + `&scope=${encodeURIComponent("user-read-private user-read-email app-remote-control")}` + `&redirect_uri=${encodeURIComponent(redirectUrl)}`
+    })
+    console.log("result: ", result)
+    this.setState({ result });
+  };
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#ecf0f1',
+  },
+});
