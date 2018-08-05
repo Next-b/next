@@ -84,7 +84,6 @@ export default class App extends Component {
         }
       })
       this.setState({ userData: userData.data })
-      console.log("data on state: ", this.state.userData)
     } catch (error) {
       console.error(error)
     }

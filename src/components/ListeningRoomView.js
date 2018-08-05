@@ -46,10 +46,10 @@ class ListeningRoom extends Component {
             const songData = {}
             songList.forEach((song) => {
                 const songVal = song.data()
-                console.log("songVal", songVal)
-                songData[song.key] = songVal
+                songData[song.id] = songVal
             })
             this.setState({ data: songData })
+            console.log("data:", songData)
         });
     }
     addData(obj) {
@@ -60,9 +60,6 @@ class ListeningRoom extends Component {
     }
     componentDidMount() {
         this.retrieveData()
-        // if (this.input) {
-        //     this.input.focus()
-        // }
     }
     expand() {
         this.setState({ visible: true })
