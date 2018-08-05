@@ -1,15 +1,16 @@
+
 import React from 'react';
 import { StyleSheet, Text, View, Button, Linking } from 'react-native';
-import { LandingView, AccountSetupView, ConnectSpotifyView, ListeningRoomView, AuthenticateSpotifyView, FindCreateListeningRoomView } from "./src/components"
+import { AccountSetupView, ListeningRoomView, AuthenticateSpotifyView, FindCreateListeningRoomView } from "./src/components"
 import { createStackNavigator } from 'react-navigation';
 
+
 const App = createStackNavigator({
-  // LandingView: { screen: LandingView },
   AuthenticateSpotifyView: { screen: AuthenticateSpotifyView },
-  ConnectSpotifyView: { screen: ConnectSpotifyView },
   AccountSetupView: { screen: AccountSetupView },
   ListeningRoomView: { screen: ListeningRoomView },
-  FindCreateListeningRoomView: {screen: FindCreateListeningRoomView}
+  FindCreateListeningRoomView: {screen: FindCreateListeningRoomView}                               
+
 
 });
 

@@ -1,41 +1,43 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Image } from 'react-native';
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { FormLabel, FormInput } from 'react-native-elements'
 
 export default class AccountSetupView extends Component {
     constructor() {
         super()
         this.state = {
-            fontLoaded: false,
             name: "",
             photo: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
         }
     }
     static navigationOptions = {
-        title: 'set up your account',
+        header: null
     };
     componentDidMount() {
-        console.log("the state:", this.props.navigation.state)
         this.setState({
             name: this.props.navigation.state.params.userData.display_name,
             photo: this.props.navigation.state.params.userData.images[0].url
         })
+        this.input.focus()
+    }
+    handlePress = () => {
+        const { navigate } = this.props.navigation;
+        navigate('FindCreateListeningRoomView')
     }
 
     render() {
-        const { navigate } = this.props.navigation;
         return (
-            <View style={styles.container}>
-                <Image style={styles.avatar}
-                    source={{ uri: this.state.photo }} />
-                <FormLabel>Name</FormLabel>
-                <FormInput style={{ textAlign: "center", justifyContent: 'center', autoFocus: "true" }} defaultValue={this.state.name} />
-                <Button
-                    title="Next"
-                    onPress={() =>
-                        navigate('FindCreateListeningRoomView', { name: 'Jane' })
-                    }
-                />
+
+            <View style={{ flex: 1 }}>
+                <View style={styles.container}>
+                    <Image style={styles.avatar}
+                        source={{ uri: this.state.photo }} />
+                    <FormLabel labelStyle={styles.textSmall} >Name</FormLabel>
+                    <FormInput ref={input => this.input = input} inputStyle={{ textAlign: "center", justifyContent: 'center' }} defaultValue={this.state.name} />
+                    <Text style={styles.text} onPress={this.handlePress} >Next</Text>
+                </View>
+                <View style={styles.lowerContainer}>
+                </View>
             </View>
         );
     }
@@ -44,20 +46,38 @@ export default class AccountSetupView extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 8 / 10,
         backgroundColor: '#fff',
         alignItems: 'center',
-        marginTop: 40
-        // justifyContent: 'center',
+        justifyContent: 'center',
+    },
+    lowerContainer: {
+        flex: 2 / 10,
+        backgroundColor: '#fff'
     },
     avatar: {
         width: 130,
         height: 130,
         borderRadius: 63,
-        borderWidth: 4,
-        borderColor: "white",
+        borderWidth: 2,
+        borderColor: "#000000",
         marginBottom: 10,
     },
+    text: {
+        marginTop: 20,
+        color: "#000000",
+        fontWeight: "bold",
+        fontSize: 30,
+        fontFamily: 'myriadPro',
+    },
+    textSmall: {
+        marginTop: 20,
+        color: "#000000",
+        fontWeight: "bold",
+        fontSize: 15,
+        fontFamily: 'myriadPro',
+        textDecorationLine: "underline"
+    }
 });
 
 

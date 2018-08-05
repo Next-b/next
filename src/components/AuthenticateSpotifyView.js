@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { Constants, WebBrowser, Linking, AuthSession, Font } from 'expo';
+import { Text, View, StyleSheet, Image } from 'react-native';
+import { Constants, AuthSession, Font } from 'expo';
 import axios from "axios"
-import { Base64 } from 'js-base64';
-import { Buffer } from "buffer"
 import qs from 'qs';
-
-
-// import { url } from 'inspector';
 
 export default class App extends Component {
   constructor() {
@@ -20,9 +15,13 @@ export default class App extends Component {
     };
     this.handlePress = this.handlePress.bind(this)
   }
+  static navigationOptions = {
+    header: null
+  };
+
   componentDidMount = async () => {
     await Font.loadAsync({
-      'open-sans-bold': require('./public/MPR.ttf'),
+      'myriadPro': require('./public/MPR.ttf'),
     });
     this.setState({ fontLoaded: true })
   }
@@ -36,7 +35,7 @@ export default class App extends Component {
 
         )}
         <Image
-          source={require(`./public/audio.gif`)} style={{ resizeMode: "contain", width: 150, height: 150 }}
+          source={require(`./public/ghost.gif`)} style={{ resizeMode: "contain", width: 300, height: 300 }}
         />
       </View>
     );
@@ -85,7 +84,6 @@ export default class App extends Component {
         }
       })
       this.setState({ userData: userData.data })
-      console.log("data on state: ", this.state.userData)
     } catch (error) {
       console.error(error)
     }
@@ -98,22 +96,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecebe8',
-  },
-  button: {
-    height: 50,
-    borderRadius: 25,
-    margin: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#84bd00',
-    padding: 10,
+    backgroundColor: '#fff',
   },
   text: {
-    color: "#828282",
+    color: "#000000",
     fontWeight: "bold",
     fontSize: 30,
-    fontFamily: 'open-sans-bold',
+    fontFamily: 'myriadPro',
     textDecorationLine: "underline"
   }
 });
