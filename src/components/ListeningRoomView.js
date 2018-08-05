@@ -1,26 +1,50 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableHighlight, Image, TouchableOpacity } from 'react-native';
 import SortableListView from 'react-native-sortable-listview'
-import RowComponent, { data } from "./RowComponent"
+import RowComponent from "./RowComponent"
+import firestore from "../../server/fireBase"
 
 class ListeningRoom extends Component {
     constructor() {
         super()
         this.state = {
+            data: {},
             isPlaying: true
         }
-        this.changeIcon = this.changeIcon.bind(this)
+        this.playPause = this.playPause.bind(this)
         this.nextSong = this.nextSong.bind(this)
         this.previousSong = this.previousSong.bind(this)
+        this.retrieveData = this.retrieveData.bind(this)
+        this.addData = this.addData.bind(this)
     }
-    changeIcon() {
+    playPause() {
+        //trigger play song in spotify api
         this.setState({ isPlaying: !this.state.isPlaying })
     }
     nextSong() {
-
+        //sends song data to spotify api
+        return
     }
     previousSong() {
-
+        //sends song data to spotify api
+        return
+    }
+    retrieveData() {
+        firestore.collection("songs").get().then((songList) => {
+            const songData = {}
+            songList.forEach((song) => {
+                const songVal = song.data()
+                console.log("songVal", songVal)
+                songData[song.key] = songVal
+            })
+            this.setState({ data: songData })
+        });
+    }
+    addData(obj) {
+        firestore.collection("songs").add(obj)
+    }
+    componentDidMount() {
+        this.retrieveData()
     }
     render() {
         return (
@@ -31,13 +55,12 @@ class ListeningRoom extends Component {
                     </View>
                     <View style={styles.upperContainerSubContainer}>
                         <Text>Current Artist</Text>
-
                         < TouchableOpacity onPress={this.previousSong}>
                             <Image
                                 source={require(`./public/previous.png`)} style={{ width: 60, height: 60 }}
                             />
                         </TouchableOpacity>
-                        < TouchableOpacity onPress={this.changeIcon}>
+                        < TouchableOpacity onPress={this.playPause}>
                             <Image
                                 source={this.state.isPlaying ? require(`./public/play.png`) : require(`./public/pause.png`)} style={{ width: 60, height: 60 }}
                             />
@@ -51,18 +74,15 @@ class ListeningRoom extends Component {
                 </View >
                 <SortableListView
                     style={styles.lowerContainer}
-                    data={data}
-                    order={Object.keys(data)}
+                    data={this.state.data}
+                    order={Object.keys(this.state.data)}
                     onRowMoved={e => {
                         order.splice(e.to, 0, order.splice(e.from, 1)[0])
                         this.forceUpdate()
                     }}
                     renderRow={row => <RowComponent data={row} />}
                 />
-                <Button title="submit" style={{ alignSelf: "flex-end" }}></Button>
-
             </React.Fragment >
-
         )
     }
 }
