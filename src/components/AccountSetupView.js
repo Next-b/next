@@ -3,18 +3,33 @@ import { StyleSheet, Text, View, Button, TextInput, Image } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 
 export default class AccountSetupView extends Component {
+    constructor() {
+        super()
+        this.state = {
+            fontLoaded: false,
+            name: "",
+            photo: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
+        }
+    }
     static navigationOptions = {
         title: 'set up your account',
     };
+    componentDidMount() {
+        console.log("the state:", this.props.navigation.state)
+        this.setState({
+            name: this.props.navigation.state.params.userData.display_name,
+            photo: this.props.navigation.state.params.userData.images[0].url
+        })
+    }
+
     render() {
         const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <Image style={styles.avatar}
-                    source={{ uri: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/30594643_1789577784427986_7750358027110187008_o.jpg?_nc_cat=0&oh=306810fefa19f3e4ec80b05ff0b42e7a&oe=5C0B16C0' }} />
+                    source={{ uri: this.state.photo }} />
                 <FormLabel>Name</FormLabel>
-                <FormInput onChangeText={() => console.log("beans")} />
-                {/* <FormValidationMessage>Error message</FormValidationMessage> */}
+                <FormInput style={{ textAlign: "center", justifyContent: 'center', autoFocus: "true" }} defaultValue={this.state.name} />
                 <Button
                     title="Next"
                     onPress={() =>
@@ -32,7 +47,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: 40
+        // justifyContent: 'center',
     },
     avatar: {
         width: 130,

@@ -1,86 +1,6 @@
-// import React, { Component } from 'react';
-// import { StyleSheet, Text, View, Button, WebView, Linking } from 'react-native';
-// import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-
-
-
-
-
-// export default class AuthenticateSpotifyView extends Component {
-//   static navigationOptions = {
-//     title: 'Log in with Spotify',
-//   }
-//   componentDidMount() {
-//     var url = "next://next-b"
-//     Linking.canOpenURL(url).then(supported => {
-//       if (!supported) {
-//         console.log('Cant handle url: ' + url);
-//       } else {
-//         return Linking.openURL(url);
-//       }
-//     }).catch(err => console.error('An error occurred', err));
-
-//   }
-//   render() {
-
-//     const { navigate } = this.props.navigation;
-//     const url = 'https://accounts.spotify.com/authorize?client_id=f51009c9ffae4a90bc7a1364f46bb2fb&response_type=code&' + 'redirect_uri=' + encodeURIComponent("next://next-b") + 'scope=' + encodeURIComponent("user-read-private user-read-email")
-
-//     console.log(url)
-//     return (
-//       <View style={styles.container}>
-//         <WebView
-//           source={{ uri: url }}
-//           style={styles.page}
-//         />
-//       </View>
-//     )
-//   }
-// }
-
-
-
-// var styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   avatar: {
-//     width: 130,
-//     height: 130,
-//     borderRadius: 63,
-//     borderWidth: 4,
-//     borderColor: "white",
-//     marginBottom: 10,
-//   },
-//   page: {
-//     marginTop: 40,
-//     width: 340,
-//     flex: 1
-//   }
-// });
-
-// // const styles = StyleSheet.create({
-// //   container: {
-// //     flex: 1,
-// //     alignItems: 'center',
-// //     justifyContent: 'space-between',
-
-// //   },
-// //   video: {
-// //     marginTop: 20,
-// //     maxHeight: 200,
-// //     width: 320,
-// //     flex: 1
-// //   }
-// // });
-
-
 import React, { Component } from 'react';
-import { Button, Text, View, StyleSheet } from 'react-native';
-import { Constants, WebBrowser, Linking, AuthSession } from 'expo';
+import { Button, Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Constants, WebBrowser, Linking, AuthSession, Font } from 'expo';
 import axios from "axios"
 import { Base64 } from 'js-base64';
 import { Buffer } from "buffer"
@@ -90,22 +10,41 @@ import qs from 'qs';
 // import { url } from 'inspector';
 
 export default class App extends Component {
-  state = {
-    resultOne: null,
-    resultTwo: null
-  };
+  constructor() {
+    super()
+    this.state = {
+      fontLoaded: false,
+      resultOne: "",
+      resultTwo: "",
+      userData: {}
+    };
+    this.handlePress = this.handlePress.bind(this)
+  }
+  componentDidMount = async () => {
+    await Font.loadAsync({
+      'open-sans-bold': require('./public/MPR.ttf'),
+    });
+    this.setState({ fontLoaded: true })
+  }
+
 
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          style={styles.paragraph}
-          title="Connect Spotify"
-          onPress={this.retrieveAccessToken}
+        {this.state.fontLoaded && (
+          <Text style={styles.text} onPress={this.handlePress} >Connect Spotify</Text>
+
+        )}
+        <Image
+          source={require(`./public/audio.gif`)} style={{ resizeMode: "contain", width: 150, height: 150 }}
         />
-        <Text>{this.state.resultOne && JSON.stringify(this.state.resultOne)}</Text>
       </View>
     );
+  }
+  handlePress = async () => {
+    const { navigate } = this.props.navigation;
+    await this.retrieveAccessToken()
+    navigate('AccountSetupView', { userData: this.state.userData })
   }
 
   retrieveAccessToken = async () => {
@@ -134,8 +73,23 @@ export default class App extends Component {
     } catch (error) {
       console.log("error: ", error)
     }
-    console.log(this.state)
+    await this.retrieveCurrentUser()
   };
+  retrieveCurrentUser = async () => {
+    try {
+      const userData = await axios({
+        method: "get",
+        url: "https://api.spotify.com/v1/me",
+        headers: {
+          "Authorization": `Bearer ${this.state.resultTwo.access_token}`
+        }
+      })
+      this.setState({ userData: userData.data })
+      console.log("data on state: ", this.state.userData)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 const styles = StyleSheet.create({
@@ -144,6 +98,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#ecebe8',
   },
+  button: {
+    height: 50,
+    borderRadius: 25,
+    margin: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#84bd00',
+    padding: 10,
+  },
+  text: {
+    color: "#828282",
+    fontWeight: "bold",
+    fontSize: 30,
+    fontFamily: 'open-sans-bold',
+    textDecorationLine: "underline"
+  }
 });
