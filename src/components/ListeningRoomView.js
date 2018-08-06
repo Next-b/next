@@ -135,6 +135,7 @@ class ListeningRoom extends Component {
                         </TouchableOpacity>
                     </View>
                 </View >
+
                 <SortableListView
                     style={styles.lowerContainer}
                     data={this.state.data}

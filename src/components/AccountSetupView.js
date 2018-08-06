@@ -34,7 +34,6 @@ export default class AccountSetupView extends Component {
 
     render() {
         return (
-
             <View style={{ flex: 1 }}>
                 <View style={styles.container}>
                     <Image style={styles.avatar}
