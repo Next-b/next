@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {StyleSheet, Text, View, TouchableOpacity, ListView} from 'react-native'
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, ListView } from 'react-native'
 
 import RoomComponent from './RoomComponent'
 import firestore from "../../server/fireBase"
@@ -13,14 +13,14 @@ class FindCreateListeningRoom extends Component {
 
     this.handlePress = this.handlePress.bind(this)
   }
-  async retrieveRooms () {
+  async retrieveRooms() {
     const roomsArray = []
     await firestore.collection("Rooms").get().then(roomList => {
       roomList.forEach(room => {
         roomsArray.push(room.data())
       })
     })
-    this.setState({rooms: roomsArray})
+    this.setState({ rooms: roomsArray })
   }
   createRoom() {
 
@@ -44,12 +44,12 @@ class FindCreateListeningRoom extends Component {
           </View>
           <View>
             <Text>Available Listening Rooms</Text>
-               {this.state.rooms.map((room) => 
-                  (
-                  <View key={room.key}>
-                    <RoomComponent room={room}/>
-                  </View>)
-               )}
+            {this.state.rooms.map((room) =>
+              (
+                <View key={room.key}>
+                  <RoomComponent room={room} />
+                </View>)
+            )}
           </View>
         </View>
       </React.Fragment>
@@ -59,17 +59,17 @@ class FindCreateListeningRoom extends Component {
 
 const styles = StyleSheet.create({
   upperContainer: {
-      flex: 1 / 5,
-      backgroundColor: '#fff',
+    flex: 1 / 5,
+    backgroundColor: '#fff',
   },
   upperContainerSubContainer: {
-      flex: 1 / 2, flexDirection: "row", justifyContent: "flex-end"
+    flex: 1 / 2, flexDirection: "row", justifyContent: "flex-end"
   },
   upperContainerSuperContainer: {
-      flex: 1 / 2, justifyContent: "flex-start"
+    flex: 1 / 2, justifyContent: "flex-start"
   },
   lowerContainer: {
-      flex: 1
+    flex: 1
   }
 });
 

@@ -1,6 +1,3 @@
-
-import React from 'react';
-import { StyleSheet, Text, View, Button, Linking } from 'react-native';
 import { AccountSetupView, ListeningRoomView, AuthenticateSpotifyView, FindCreateListeningRoomView, NewRoomCreateView} from "./src/components"
 import { createStackNavigator } from 'react-navigation';
 

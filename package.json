@@ -47,6 +47,7 @@
     "request": "^2.87.0",
     "rn-sliding-up-panel": "^1.2.1",
     "sequelize": "^4.38.0",
+    "tcomb-form-native": "^0.6.15",
     "watchman": "^1.0.0"
   }
 }

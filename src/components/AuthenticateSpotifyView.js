@@ -32,7 +32,6 @@ export default class App extends Component {
       <View style={styles.container}>
         {this.state.fontLoaded && (
           <Text style={styles.text} onPress={this.handlePress}>Connect Spotify</Text>
-
         )}
         <Image
           source={require(`./public/ghost.gif`)} style={{ resizeMode: "contain", width: 300, height: 300 }}
@@ -43,13 +42,13 @@ export default class App extends Component {
   handlePress = async () => {
     const { navigate } = this.props.navigation;
     await this.retrieveAccessToken()
-    navigate('AccountSetupView', { userData: this.state.userData })
+    navigate('AccountSetupView', { userData: this.state.userData, resultOne: this.state.resultOne, resultTwo: this.state.resultTwo })
   }
 
   retrieveAccessToken = async () => {
     let redirectUrl = "exp://expo.io/@alanyoho/next"
     let resultOne = await AuthSession.startAsync({
-      authUrl: `https://accounts.spotify.com/authorize?response_type=code` + `&client_id=f51009c9ffae4a90bc7a1364f46bb2fb` + `&scope=${encodeURIComponent("user-read-private user-read-email app-remote-control")}` + `&redirect_uri=${encodeURIComponent(redirectUrl)}`
+      authUrl: `https://accounts.spotify.com/authorize?response_type=code` + `&client_id=f51009c9ffae4a90bc7a1364f46bb2fb` + `&scope=${encodeURIComponent("streaming user-read-private user-read-email app-remote-control")}` + `&redirect_uri=${encodeURIComponent(redirectUrl)}`
     })
     this.setState({ resultOne });
     try {
@@ -69,6 +68,7 @@ export default class App extends Component {
         }),
       })
       this.setState({ resultTwo: returnData.data })
+      console.log("access Token: ", returnData.data.access_token)
     } catch (error) {
       console.log("error: ", error)
     }
