@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements'
 
 export default class AccountSetupView extends Component {
@@ -40,7 +40,10 @@ export default class AccountSetupView extends Component {
                         source={{ uri: this.state.photo }} />
                     <FormLabel labelStyle={styles.textSmall} >Name</FormLabel>
                     <FormInput ref={input => this.input = input} inputStyle={{ textAlign: "center", justifyContent: 'center' }} defaultValue={this.state.name} />
-                    <Text style={styles.text} onPress={this.handlePress} >Next</Text>
+                    < TouchableOpacity onPress={this.handlePress}>
+                        <Text style={styles.text}  >Next</Text>
+
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.lowerContainer}>
                 </View>

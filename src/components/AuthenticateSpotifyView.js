@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Constants, AuthSession, Font } from 'expo';
 import axios from "axios"
 import qs from 'qs';
@@ -31,7 +31,10 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         {this.state.fontLoaded && (
-          <Text style={styles.text} onPress={this.handlePress}>Connect Spotify</Text>
+          <TouchableOpacity onPress={this.handlePress}>
+            <Text style={styles.text} >Connect Spotify</Text>
+          </TouchableOpacity>
+
         )}
         <Image
           source={require(`./public/ghost.gif`)} style={{ resizeMode: "contain", width: 300, height: 300 }}

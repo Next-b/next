@@ -106,7 +106,6 @@ class ListeningRoom extends Component {
         console.log("pressed!")
     }
     expand() {
-        // this.input.focus()
         this.setState({ visible: true })
     }
     contract() {
@@ -175,7 +174,9 @@ class ListeningRoom extends Component {
                                     <View style={styles.searchPanelSuper}>
                                         <FormLabel labelStyle={styles.textSmall} onPress={() => this.setState({ visible: false })} >Dismiss</FormLabel>
                                         <FormInput ref={input => this.input = input} inputStyle={{ height: 40, width: 160, textAlign: "center", justifyContent: 'center' }} placeholder="search..." onChangeText={((searchVal) => { this.setState({ searchVal }), this.search(searchVal) })} onSubmitEditing={() => this.search(this.state.searchVal)} />
-                                        <Text style={styles.search} onPress={this.handleChange}>Search</Text>
+                                        <TouchableOpacity onPress={this.handleChange}>
+                                            <Text style={styles.search} >Search</Text>
+                                        </TouchableOpacity>
                                     </View>
                                     {/* {this.state.searchResult == [] && <Image style={styles.lowerContainer} source={require('./public/original.gif')} />} */}
                                     <ScrollView

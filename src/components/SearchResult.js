@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight, Image } from 'react-native'
+import { Text, View, TouchableHighlight, Image, TouchableOpacity } from 'react-native'
 import firestore from "../../server/fireBase"
 
 
@@ -49,13 +49,16 @@ export default class SearchResult extends Component {
                         <Text>{result.name}</Text>
                     </View>
                     <View>
-                        <Text labelStyle={{
-                            marginTop: 20,
-                            color: "#000000",
-                            fontWeight: "bold",
-                            fontSize: 15,
-                            fontFamily: 'myriadPro',
-                        }} onPress={this.addToQueue} >Add To Queue</Text>
+                        <TouchableOpacity onPress={this.addToQueue}>
+                            <Text labelStyle={{
+                                marginTop: 20,
+                                color: "#000000",
+                                fontWeight: "bold",
+                                fontSize: 15,
+                                fontFamily: 'myriadPro',
+                            }}  >Add To Queue</Text>
+                        </TouchableOpacity>
+
                     </View>
                 </View>
             </TouchableHighlight >
