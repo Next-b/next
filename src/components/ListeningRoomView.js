@@ -85,16 +85,13 @@ class ListeningRoom extends Component {
                 arr.push(obj)
                 ct++
             })
-            console.log(arr)
             this.setState({ searchResult: arr })
-
-            console.log(searchResult.data.tracks.items[0].name + " by " + searchResult.data.tracks.items[0].artists[0].name)
-
         } catch (error) {
             console.log("big bad error:", error)
         }
     }
     componentDidMount() {
+        console.log("Passed from FindCreateListeningRoom to ListeningRoom", this.props.navigation.state.params.resultTwo)
         this.retrieveData()
         this.setState({
             userData: this.props.navigation.state.params.userData,
@@ -104,7 +101,6 @@ class ListeningRoom extends Component {
     }
     handleChange() {
         this.search(this.state.searchVal)
-        console.log("value to search:", this.state.searchVal)
         console.log("pressed!")
     }
     expand() {

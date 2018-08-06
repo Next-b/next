@@ -28,7 +28,8 @@ export default class AccountSetupView extends Component {
     }
     handlePress = () => {
         const { navigate } = this.props.navigation;
-        navigate('FindCreateListeningRoomView', {userData: this.props.navigation.state.params.userData})
+        console.log("Passed from SpotifyAuthentication to AccountSetup", this.props.navigation.state.params.resultTwo)
+        navigate('FindCreateListeningRoomView', { userData: this.props.navigation.state.params.userData, resultTwo: this.props.navigation.state.params.resultTwo })
     }
 
     render() {

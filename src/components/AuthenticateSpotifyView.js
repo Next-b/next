@@ -42,6 +42,7 @@ export default class App extends Component {
   handlePress = async () => {
     const { navigate } = this.props.navigation;
     await this.retrieveAccessToken()
+    console.log("Created in SpotifyAuthentication", this.state.resultTwo)
     navigate('AccountSetupView', { userData: this.state.userData, resultOne: this.state.resultOne, resultTwo: this.state.resultTwo })
   }
 

@@ -27,17 +27,18 @@ class FindCreateListeningRoom extends Component {
 
   }
 
-  handlePress () {
-    const {navigate} = this.props.navigation;
-    navigate('NewRoomCreateView', {userData: this.props.navigation.state.params.userData})
+  handlePress() {
+    const { navigate } = this.props.navigation;
+    navigate('NewRoomCreateView', { userData: this.props.navigation.state.params.userData })
   }
 
-  componentHandlePress(){ 
-    const {navigate} = this.props.navigation;
-    navigate('ListeningRoomView', {})
-  }  
+  componentHandlePress() {
+    const { navigate } = this.props.navigation;
+    navigate('ListeningRoomView', { resultTwo: this.props.navigation.state.params.resultTwo })
+  }
 
   componentDidMount() {
+    console.log("Passed from AccountSetup to FindCreateListeningRoom", this.props.navigation.state.params.resultTwo)
     this.retrieveRooms()
   }
 
@@ -53,7 +54,7 @@ class FindCreateListeningRoom extends Component {
             {this.state.rooms.map((room) =>
               (
                 <View key={room.key} >
-                  <RoomComponent room={room} onPress={this.componentHandlePress}/>
+                  <RoomComponent room={room} onPress={this.componentHandlePress} />
                 </View>)
             )}
           </View>
