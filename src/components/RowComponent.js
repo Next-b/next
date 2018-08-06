@@ -23,7 +23,9 @@ export default class RowComponent extends Component {
                         flex: 1,
                         flexDirection: 'column',
                     }}>
-                        <Text>{this.props.data.artist} </Text><Text>{this.props.data.name} </Text>
+                        <Text style={{
+                            fontWeight: "bold",
+                        }}>{this.props.data.artist} </Text><Text>{this.props.data.name} </Text>
                     </View>
                 </View>
             </TouchableHighlight >

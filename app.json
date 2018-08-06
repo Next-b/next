@@ -2,7 +2,9 @@
   "expo": {
     "sdkVersion": "27.0.0",
     "scheme": "next",
-    "slug": "next-next",
-    "name": "next"
+    "slug": "next",
+    "name": "next",
+    "version": "0.1.0",
+    "description": ""
   }
 }
