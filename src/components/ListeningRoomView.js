@@ -150,7 +150,7 @@ class ListeningRoom extends Component {
                     }}
                     renderRow={row => <RowComponent data={row} />}
                 />
-                <View style={{ flexDirection: "row", justifyContent: "flex-end", marginRight: 20, marginBottom: 20 }}>
+                <View style={{ flexDirection: "row", justifyContent: "flex-end", right: 15, bottom: 15, position: "absolute" }}>
                     <TouchableHighlight onPress={this.expand}>
                         <Image style={styles.imagestyle} source={require('./public/plus.png')} />
                     </TouchableHighlight>
@@ -166,9 +166,10 @@ class ListeningRoom extends Component {
                     <View style={styles.searchPanel}>
                         <View style={styles.searchPanelSuper}>
                             <Text labelStyle={styles.textSmall} onPress={() => this.setState({ visible: false })} >Dismiss</Text>
-                            <FormInput inputStyle={{ height: 40, width: 160, textAlign: "center", justifyContent: 'center' }} placeholder="search..." onChangeText={(searchVal) => this.setState({ searchVal })} onSubmitEditing={() => this.search(this.state.searchVal)} />
+                            <FormInput inputStyle={{ height: 40, width: 160, textAlign: "center", justifyContent: 'center' }} placeholder="search..." onChangeText={((searchVal) => this.setState({ searchVal }))} onSubmitEditing={() => this.search(this.state.searchVal)} />
                             <Text style={styles.search} onPress={this.handleChange}>Search</Text>
                         </View>
+                        {this.state.searchResult == [] && <Image style={styles.lowerContainer} source={require('./public/original.gif')} />}
                         <ScrollView
                             onTouchEnd={() => this.setState({ allowDragging: true })}
                             onTouchCancel={() => this.setState({ allowDragging: true })}
@@ -178,8 +179,10 @@ class ListeningRoom extends Component {
                                     (
                                         <View key={result.key} style={styles.resultView}>
                                             <SearchResult refresh={this.retrieveData} contract={this.contract} key={result.name} result={result} />
-                                        </View>)
+                                        </View>
+                                    )
                                 )}
+
                             </View>
                         </ScrollView>
 
@@ -213,6 +216,7 @@ const styles = StyleSheet.create({
     imagestyle: {
         width: 70,
         height: 70,
+
     },
     searchPanel: {
         borderTopLeftRadius: 30,
