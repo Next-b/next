@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableHighlight, Image, TouchableOpacity, Animated, ScrollView, TextInput, Keyboard } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableHighlight, Image, TouchableOpacity, Animated, ScrollView, TextInput, Keyboard, ActivityIndicator } from 'react-native';
 import { FormLabel, FormInput, Input } from "react-native-elements"
 import SortableListView from 'react-native-sortable-listview'
 import RowComponent from "./RowComponent"
@@ -21,7 +21,8 @@ class ListeningRoom extends Component {
             searchVal: "",
             userData: "",
             resultOne: "",
-            resultTwo: ""
+            resultTwo: "",
+            loading: true
         }
         this.playPause = this.playPause.bind(this)
         this.nextSong = this.nextSong.bind(this)
@@ -98,6 +99,8 @@ class ListeningRoom extends Component {
             resultOne: this.props.navigation.state.params.resultOne,
             resultTwo: this.props.navigation.state.params.resultTwo
         })
+        setTimeout(() => this.setState({ loading: false }), 549); // simulates an async action, and hides the spinner
+
     }
     handleChange() {
         this.search(this.state.searchVal)
@@ -135,59 +138,71 @@ class ListeningRoom extends Component {
                         </TouchableOpacity>
                     </View>
                 </View >
-
-                <SortableListView
-                    style={styles.lowerContainer}
-                    data={this.state.data}
-                    order={Object.keys(this.state.data)}
-                    onRowMoved={e => {
-                        Object.keys(this.state.data).splice(e.to, 0, Object.keys(this.state.data).splice(e.from, 1)[0])
-                        this.forceUpdate()
-                    }}
-                    renderRow={row => <RowComponent data={row} />}
-                />
-                <View style={{ flexDirection: "row", justifyContent: "flex-end", right: 15, bottom: 15, position: "absolute" }}>
-                    <TouchableHighlight onPress={this.expand}>
-                        <Image style={styles.imagestyle} source={require('./public/plus.png')} />
-                    </TouchableHighlight>
-                </View>
-
-                <SlidingUpPanel
-                    visible={this.state.visible}
-                    allowDragging={this.state.allowDragging}
-                    showBackdrop={true}
-                    draggableRange={{ top: 600, bottom: 0 }}
-                    onRequestClose={() => this.setState({ visible: false })}>
-
-                    <View style={styles.searchPanel}>
-                        <View style={styles.searchPanelSuper}>
-                            <Text labelStyle={styles.textSmall} onPress={() => this.setState({ visible: false })} >Dismiss</Text>
-                            <FormInput inputStyle={{ height: 40, width: 160, textAlign: "center", justifyContent: 'center' }} placeholder="search..." onChangeText={((searchVal) => this.setState({ searchVal }))} onSubmitEditing={() => this.search(this.state.searchVal)} />
-                            <Text style={styles.search} onPress={this.handleChange}>Search</Text>
-                        </View>
-                        {this.state.searchResult == [] && <Image style={styles.lowerContainer} source={require('./public/original.gif')} />}
-                        <ScrollView
-                            onTouchEnd={() => this.setState({ allowDragging: true })}
-                            onTouchCancel={() => this.setState({ allowDragging: true })}
-                            onTouchStart={() => this.setState({ allowDragging: false })}>
-                            <View style={styles.searchPanelSub}>
-                                {this.state.searchResult != [] && this.state.searchResult.map((result) =>
-                                    (
-                                        <View key={result.key} style={styles.resultView}>
-                                            <SearchResult refresh={this.retrieveData} contract={this.contract} key={result.name} result={result} />
-                                        </View>
-                                    )
-                                )}
-
-                            </View>
-                        </ScrollView>
-
+                {this.state.loading ? (
+                    <View style={{
+                        flex: 1,
+                        justifyContent: 'center'
+                    }}>
+                        <ActivityIndicator size="large" color="#000000" />
                     </View>
+                ) : (
+                        <React.Fragment>
+                            <SortableListView
+                                style={styles.lowerContainer}
+                                data={this.state.data}
+                                order={Object.keys(this.state.data)}
+                                onRowMoved={e => {
+                                    Object.keys(this.state.data).splice(e.to, 0, Object.keys(this.state.data).splice(e.from, 1)[0])
+                                    this.forceUpdate()
+                                }}
+                                renderRow={row => <RowComponent data={row} />}
+                            />
+                            <View style={{ flexDirection: "row", justifyContent: "flex-end", right: 15, bottom: 15, position: "absolute" }}>
+                                <TouchableHighlight onPress={this.expand}>
+                                    <Image style={styles.imagestyle} source={require('./public/plus.png')} />
+                                </TouchableHighlight>
+                            </View>
+
+                            <SlidingUpPanel
+                                visible={this.state.visible}
+                                allowDragging={this.state.allowDragging}
+                                showBackdrop={true}
+                                draggableRange={{ top: 600, bottom: 0 }}
+                                onRequestClose={() => this.setState({ visible: false })}>
+
+                                <View style={styles.searchPanel}>
+                                    <View style={styles.searchPanelSuper}>
+                                        <Text labelStyle={styles.textSmall} onPress={() => this.setState({ visible: false })} >Dismiss</Text>
+                                        <FormInput inputStyle={{ height: 40, width: 160, textAlign: "center", justifyContent: 'center' }} placeholder="search..." onChangeText={((searchVal) => this.setState({ searchVal }))} onSubmitEditing={() => this.search(this.state.searchVal)} />
+                                        <Text style={styles.search} onPress={this.handleChange}>Search</Text>
+                                    </View>
+                                    {this.state.searchResult == [] && <Image style={styles.lowerContainer} source={require('./public/original.gif')} />}
+                                    <ScrollView
+                                        onTouchEnd={() => this.setState({ allowDragging: true })}
+                                        onTouchCancel={() => this.setState({ allowDragging: true })}
+                                        onTouchStart={() => this.setState({ allowDragging: false })}>
+                                        <View style={styles.searchPanelSub}>
+                                            {this.state.searchResult != [] && this.state.searchResult.map((result) =>
+                                                (
+                                                    <View key={result.key} style={styles.resultView}>
+                                                        <SearchResult refresh={this.retrieveData} contract={this.contract} key={result.name} result={result} />
+                                                    </View>
+                                                )
+                                            )}
+
+                                        </View>
+                                    </ScrollView>
+
+                                </View>
 
 
 
 
-                </SlidingUpPanel>
+                            </SlidingUpPanel>
+                        </React.Fragment>
+                    )
+                }
+
             </React.Fragment >
         )
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight, Image, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableHighlight, Image, ActivityIndicator } from 'react-native'
 
 export default class RoomComponent extends Component {
   constructor() {
