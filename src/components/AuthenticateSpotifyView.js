@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Constants, AuthSession, Font } from 'expo';
 import axios from "axios"
 import qs from 'qs';
+import styles from "./styles"
+
 
 export default class App extends Component {
   constructor() {
@@ -94,19 +96,3 @@ export default class App extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#fff',
-  },
-  text: {
-    color: "#000000",
-    fontWeight: "bold",
-    fontSize: 30,
-    fontFamily: 'myriadPro',
-    textDecorationLine: "underline"
-  }
-});

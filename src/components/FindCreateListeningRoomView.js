@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity, ListView, TouchableHighlight,
 
 import RoomComponent from './RoomComponent'
 import firestore from "../../server/fireBase"
+import styles from "./styles"
+
 
 class FindCreateListeningRoom extends Component {
   constructor() {
@@ -81,25 +83,5 @@ class FindCreateListeningRoom extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  text: {
-    marginTop: 40,
-    color: "#000000",
-    fontWeight: "bold",
-    fontSize: 30,
-    fontFamily: 'myriadPro',
-    textDecorationLine: "underline",
-    textAlign: "center"
-
-  },
-  lowerContainer: {
-    flex: 1
-  },
-  imagestyle: {
-    width: 70,
-    height: 70,
-  },
-});
 
 export default FindCreateListeningRoom

@@ -8,6 +8,8 @@ import SlidingUpPanel from 'rn-sliding-up-panel'
 import qs from 'qs';
 import axios from "axios"
 import SearchResult from "./SearchResult"
+import styles from "./styles"
+
 
 class ListeningRoom extends Component {
     constructor() {
@@ -172,7 +174,9 @@ class ListeningRoom extends Component {
 
                                 <View style={styles.searchPanel}>
                                     <View style={styles.searchPanelSuper}>
-                                        <FormLabel labelStyle={styles.textSmall} onPress={() => this.setState({ visible: false })} >Dismiss</FormLabel>
+                                        <TouchableOpacity onPress={() => this.setState({ visible: false })}>
+                                            <FormLabel labelStyle={styles.textSmall}  >Dismiss</FormLabel>
+                                        </TouchableOpacity>
                                         <FormInput ref={input => this.input = input} inputStyle={{ height: 40, width: 160, textAlign: "center", justifyContent: 'center' }} placeholder="search..." onChangeText={((searchVal) => { this.setState({ searchVal }), this.search(searchVal) })} onSubmitEditing={() => this.search(this.state.searchVal)} />
                                         <TouchableOpacity onPress={this.handleChange}>
                                             <Text style={styles.search} >Search</Text>
@@ -211,61 +215,3 @@ class ListeningRoom extends Component {
 }
 
 export default ListeningRoom
-
-const styles = StyleSheet.create({
-    upperContainer: {
-        flex: 1 / 5,
-        backgroundColor: '#fff',
-    },
-    upperContainerSubContainer: {
-        flex: 1 / 2, flexDirection: "row", justifyContent: "flex-end"
-    },
-    upperContainerSuperContainer: {
-        flex: 1 / 2, justifyContent: "flex-start"
-    },
-    lowerContainer: {
-        flex: 1,
-    },
-    imagestyle: {
-        width: 70,
-        height: 70,
-
-    },
-    searchPanel: {
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        flex: 1,
-        backgroundColor: "#fff",
-        // alignItems: 'center',
-        // justifyContent: 'center',
-
-    },
-    textSmall: {
-        marginTop: 20,
-        color: "#000000",
-        fontWeight: "bold",
-        fontSize: 15,
-        fontFamily: 'myriadPro',
-    },
-    search: {
-        marginTop: 12,
-        color: "#000000",
-        fontWeight: "bold",
-        fontSize: 30,
-        fontFamily: 'myriadPro',
-        textDecorationLine: "underline"
-
-    },
-    searchPanelSuper: {
-        flex: 3 / 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    searchPanelSub: {
-        flex: 7 / 10,
-        flexDirection: "column"
-    },
-    resultView: {
-        flex: 1
-    }
-});
