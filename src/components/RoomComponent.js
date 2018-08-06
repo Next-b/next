@@ -10,7 +10,9 @@ export default class RoomComponent extends Component {
   handlePress() {
     this.props.onPress()
   }
-
+  deleteRoom() {
+    
+  }
   render() {
     return (
       <TouchableHighlight
@@ -31,6 +33,8 @@ export default class RoomComponent extends Component {
           <View style={{ flex: 1, flexDirection: "column" }}>
             <Text style={{ fontWeight: "bold" }} >{this.props.room.roomName}</Text>
             <Text>7 Listeners</Text>
+            <Text>Edit Room</Text>
+            <Text onPress={this.deleteRoom}>Delete Room</Text>
           </View>
         </View>
       </TouchableHighlight>
