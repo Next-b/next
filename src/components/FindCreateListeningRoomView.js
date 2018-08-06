@@ -26,9 +26,6 @@ class FindCreateListeningRoom extends Component {
     })
     this.setState({ rooms: roomsArray })
   }
-  createRoom() {
-
-  }
 
   handlePress() {
     const { navigate } = this.props.navigation;
@@ -41,7 +38,7 @@ class FindCreateListeningRoom extends Component {
     navigate('ListeningRoomView', { resultTwo: this.props.navigation.state.params.resultTwo })
   }
 
-  componentDidMount() {
+  componentWillMount() {
     console.log("Passed from AccountSetup to FindCreateListeningRoom", this.props.navigation.state.params.resultTwo)
     this.retrieveRooms()
   }
@@ -52,6 +49,7 @@ class FindCreateListeningRoom extends Component {
         <View style={{ flex: 1, backgroundColor: "#fff" }}>
           <View>
             <Text style={styles.text}>Available Listening Rooms</Text>
+            {console.log(this.state.rooms)}
             {this.state.rooms.map((room) =>
               (
                 <View key={room.key} >
@@ -77,7 +75,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 30,
     fontFamily: 'myriadPro',
-    textDecorationLine: "underline"
+    textDecorationLine: "underline",
+    textAlign: "center"
 
   },
   lowerContainer: {
