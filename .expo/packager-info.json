@@ -3,7 +3,7 @@
   "packagerPort": null,
   "packagerPid": null,
   "devToolsPort": 19002,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://ah-92h.alanyoho.next.exp.direct",
+  "packagerNgrokUrl": "https://packager.ah-92h.alanyoho.next.exp.direct",
+  "ngrokPid": 65757
 }

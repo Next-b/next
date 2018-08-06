@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ListView, TouchableHighlight, Image } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ListView, TouchableHighlight, Image, ActivityIndicator } from 'react-native'
 
 import RoomComponent from './RoomComponent'
 import firestore from "../../server/fireBase"
@@ -9,6 +9,7 @@ class FindCreateListeningRoom extends Component {
     super()
     this.state = {
       rooms: [],
+      loading: true
     }
 
     this.handlePress = this.handlePress.bind(this)
@@ -41,6 +42,7 @@ class FindCreateListeningRoom extends Component {
   componentWillMount() {
     console.log("Passed from AccountSetup to FindCreateListeningRoom", this.props.navigation.state.params.resultTwo)
     this.retrieveRooms()
+    setTimeout(() => this.setState({ loading: false }), 2000);
   }
 
   render() {
@@ -49,13 +51,23 @@ class FindCreateListeningRoom extends Component {
         <View style={{ flex: 1, backgroundColor: "#fff" }}>
           <View>
             <Text style={styles.text}>Available Listening Rooms</Text>
-            {console.log(this.state.rooms)}
-            {this.state.rooms.map((room) =>
-              (
-                <View key={room.key} >
-                  <RoomComponent room={room} onPress={this.componentHandlePress} />
-                </View>)
-            )}
+            {this.state.loading ?
+              <View style={{
+                flex: 1,
+                justifyContent: 'center'
+              }}>
+                <ActivityIndicator size="large" color="#000000" />
+              </View> :
+
+              (this.state.rooms.map((room) =>
+                (
+                  <View key={room.key} >
+                    <RoomComponent room={room} onPress={this.componentHandlePress} />
+                  </View>)
+              ))
+
+            }
+
           </View>
           <View style={{ flexDirection: "row", justifyContent: "flex-end", right: 15, bottom: 15, position: "absolute" }}>
             <TouchableHighlight onPress={this.handlePress}>
