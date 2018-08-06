@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ListView, TouchableHighlight, Image, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ListView, TouchableHighlight, Image, ActivityIndicator, ScrollView } from 'react-native'
 
 import RoomComponent from './RoomComponent'
 import firestore from "../../server/fireBase"
@@ -14,6 +14,7 @@ class FindCreateListeningRoom extends Component {
 
     this.handlePress = this.handlePress.bind(this)
     this.componentHandlePress = this.componentHandlePress.bind(this)
+    this.retrieveRooms = this.retrieveRooms.bind(this)
   }
   static navigationOptions = {
     header: null
@@ -30,7 +31,7 @@ class FindCreateListeningRoom extends Component {
 
   handlePress() {
     const { navigate } = this.props.navigation;
-    navigate('NewRoomCreateView', { userData: this.props.navigation.state.params.userData })
+    navigate('NewRoomCreateView', { userData: this.props.navigation.state.params.userData, retrieve: this.retrieveRooms })
   }
 
   componentHandlePress() {
@@ -58,13 +59,14 @@ class FindCreateListeningRoom extends Component {
               }}>
                 <ActivityIndicator size="large" color="#000000" />
               </View> :
-
-              (this.state.rooms.map((room) =>
-                (
-                  <View key={room.key} >
-                    <RoomComponent room={room} onPress={this.componentHandlePress} />
-                  </View>)
-              ))
+              (<ScrollView>
+                {this.state.rooms.map((room) =>
+                  (
+                    <View key={room.key} >
+                      <RoomComponent room={room} onPress={this.componentHandlePress} />
+                    </View>
+                  ))}
+              </ScrollView>)
 
             }
 
