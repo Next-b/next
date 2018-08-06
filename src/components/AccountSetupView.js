@@ -22,7 +22,7 @@ export default class AccountSetupView extends Component {
     }
     handlePress = () => {
         const { navigate } = this.props.navigation;
-        navigate('FindCreateListeningRoomView')
+        navigate('FindCreateListeningRoomView', {userData: this.props.navigation.state.params.userData})
     }
 
     render() {
