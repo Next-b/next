@@ -31,6 +31,7 @@ class ListeningRoom extends Component {
         this.expand = this.expand.bind(this)
         this.search = this.search.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.contract = this.contract.bind(this)
     }
     static navigationOptions = {
         headerLeft: null
@@ -109,6 +110,9 @@ class ListeningRoom extends Component {
     expand() {
         this.setState({ visible: true })
     }
+    contract() {
+        this.setState({ visible: false })
+    }
 
     render() {
         console.log("data", this.state.data)
@@ -173,7 +177,7 @@ class ListeningRoom extends Component {
                                 {this.state.searchResult != [] && this.state.searchResult.map((result) =>
                                     (
                                         <View key={result.key} style={styles.resultView}>
-                                            <SearchResult key={result.name} result={result} />
+                                            <SearchResult refresh={this.retrieveData} contract={this.contract} key={result.name} result={result} />
                                         </View>)
                                 )}
                             </View>

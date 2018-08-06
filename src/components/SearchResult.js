@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Image } from 'react-native'
+import firestore from "../../server/fireBase"
+
 
 export default class SearchResult extends Component {
+    constructor() {
+        super()
+        this.addToQueue = this.addToQueue.bind(this)
+        this.addData = this.addData.bind(this)
 
+    }
+    addToQueue() {
+        const result = this.props.result["0"]
+        console.log("added to queue")
+        this.addData({
+            name: result.name,
+            artist: result.artist,
+            image: result.image
+        })
+        this.props.refresh()
+        this.props.contract()
+    }
+    addData(obj) {
+        firestore.collection("songs").add(obj)
+    }
     render() {
         const result = this.props.result["0"]
-        console.log("almost there...", result)
         return (
             <TouchableHighlight
                 underlayColor={'#eee'}
@@ -24,8 +44,17 @@ export default class SearchResult extends Component {
                     }}>                        <Text>{result.name}</Text>
                         <Text>{result.artist}</Text>
                     </View>
+                    <View>
+                        <Text labelStyle={{
+                            marginTop: 20,
+                            color: "#000000",
+                            fontWeight: "bold",
+                            fontSize: 15,
+                            fontFamily: 'myriadPro',
+                        }} onPress={this.addToQueue} >Add To Queue</Text>
+                    </View>
                 </View>
-            </TouchableHighlight>
+            </TouchableHighlight >
         )
     }
 }
