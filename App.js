@@ -9,9 +9,7 @@ const App = createStackNavigator({
   AuthenticateSpotifyView: { screen: AuthenticateSpotifyView },
   AccountSetupView: { screen: AccountSetupView },
   ListeningRoomView: { screen: ListeningRoomView },
-  FindCreateListeningRoomView: {screen: FindCreateListeningRoomView}                               
-
-
+  FindCreateListeningRoomView: { screen: FindCreateListeningRoomView }
 });
 
 export default App;

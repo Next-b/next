@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight, Image } from 'react-native';
+import { Text, View, TouchableHighlight, Image } from 'react-native'
 
-export default class RowComponent extends Component {
+export default class SearchResult extends Component {
+
     render() {
+        const result = this.props.result["0"]
+        console.log("almost there...", result)
         return (
             <TouchableHighlight
                 underlayColor={'#eee'}
@@ -11,23 +14,18 @@ export default class RowComponent extends Component {
                     backgroundColor: '#F8F8F8',
                     borderBottomWidth: 1,
                     borderColor: '#eee',
-                }}
-                {...this.props.sortHandlers}
-            >
+                    flex: 1
+                }}>
                 <View style={{ flex: 1, flexDirection: "row", padding: 10, alignItems: "center" }}>
-                    <Image
-                        style={{ width: 40, height: 40 }}
-                        source={{ uri: this.props.data.image }}
-                    />
+                    <Image style={{ width: 40, height: 40 }} source={{ uri: result.image }} />
                     <View style={{
                         flex: 1,
                         flexDirection: 'column',
-                    }}>
-                        <Text>{this.props.data.artist} </Text><Text>{this.props.data.name} </Text>
+                    }}>                        <Text>{result.name}</Text>
+                        <Text>{result.artist}</Text>
                     </View>
                 </View>
-            </TouchableHighlight >
+            </TouchableHighlight>
         )
     }
 }
-
