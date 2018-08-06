@@ -7,7 +7,10 @@ export default class AccountSetupView extends Component {
         super()
         this.state = {
             name: "",
-            photo: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
+            photo: "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
+            userData: "",
+            resultOne: "",
+            resultTwo: ""
         }
     }
     static navigationOptions = {
@@ -16,13 +19,16 @@ export default class AccountSetupView extends Component {
     componentDidMount() {
         this.setState({
             name: this.props.navigation.state.params.userData.display_name,
-            photo: this.props.navigation.state.params.userData.images[0].url
+            photo: this.props.navigation.state.params.userData.images[0].url,
+            userData: this.props.navigation.state.params.userData,
+            resultOne: this.props.navigation.state.params.resultOne,
+            resultTwo: this.props.navigation.state.params.resultTwo
         })
         this.input.focus()
     }
     handlePress = () => {
         const { navigate } = this.props.navigation;
-        navigate('FindCreateListeningRoomView')
+        navigate('ListeningRoomView', { userData: this.state.userData, resultOne: this.state.resultOne, resultTwo: this.state.resultTwo })
     }
 
     render() {
@@ -69,6 +75,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 30,
         fontFamily: 'myriadPro',
+        textDecorationLine: "underline"
     },
     textSmall: {
         marginTop: 20,
