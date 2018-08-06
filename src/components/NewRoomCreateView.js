@@ -46,7 +46,16 @@ export default class NewRoomCreateView extends Component {
           placeholder="Add room name"
           onChangeText={name => (this.setState({ roomName: name }))}
         />
-        <Text onPress={this.handlePress}>Create Room</Text>
+        <Text style={{
+          marginTop: 20,
+          color: "#000000",
+          fontWeight: "bold",
+          fontSize: 30,
+          fontFamily: 'myriadPro',
+          textDecorationLine: "underline",
+          textAlign: "center"
+
+        }} onPress={this.handlePress}>Create Room</Text>
       </View>
     )
   }

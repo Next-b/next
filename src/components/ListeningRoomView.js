@@ -35,7 +35,6 @@ class ListeningRoom extends Component {
         this.contract = this.contract.bind(this)
     }
     static navigationOptions = {
-        headerLeft: null
     };
     playPause() {
         //trigger play song in spotify api
