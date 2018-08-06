@@ -115,7 +115,6 @@ class ListeningRoom extends Component {
     }
 
     render() {
-        console.log("data", this.state.data)
         return (
             <React.Fragment>
                 <View style={styles.upperContainer}>
@@ -145,7 +144,7 @@ class ListeningRoom extends Component {
                     data={this.state.data}
                     order={Object.keys(this.state.data)}
                     onRowMoved={e => {
-                        order.splice(e.to, 0, order.splice(e.from, 1)[0])
+                        Object.keys(this.state.data).splice(e.to, 0, Object.keys(this.state.data).splice(e.from, 1)[0])
                         this.forceUpdate()
                     }}
                     renderRow={row => <RowComponent data={row} />}

@@ -41,8 +41,12 @@ export default class SearchResult extends Component {
                     <View style={{
                         flex: 1,
                         flexDirection: 'column',
-                    }}>                        <Text>{result.name}</Text>
-                        <Text>{result.artist}</Text>
+                    }}>
+                        <Text style={{
+                            fontWeight: "bold",
+                        }}>{result.artist}</Text>
+
+                        <Text>{result.name}</Text>
                     </View>
                     <View>
                         <Text labelStyle={{
