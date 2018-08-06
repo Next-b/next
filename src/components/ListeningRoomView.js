@@ -63,7 +63,7 @@ class ListeningRoom extends Component {
         firestore.collection("songs").add(obj)
     }
     search = async (trackName) => {
-        Keyboard.dismiss()
+        // Keyboard.dismiss()
         try {
             const token = this.props.navigation.state.params.resultTwo.access_token
             const searchResult = await axios({
@@ -98,7 +98,7 @@ class ListeningRoom extends Component {
             resultOne: this.props.navigation.state.params.resultOne,
             resultTwo: this.props.navigation.state.params.resultTwo
         })
-        setTimeout(() => this.setState({ loading: false }), 659);
+        setTimeout(() => this.setState({ loading: false }), 1000);
 
     }
     handleChange() {
@@ -106,6 +106,7 @@ class ListeningRoom extends Component {
         console.log("pressed!")
     }
     expand() {
+        // this.input.focus()
         this.setState({ visible: true })
     }
     contract() {
@@ -114,7 +115,7 @@ class ListeningRoom extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <View style={{ backgroundColor: "#fff", flex: 1 }} >
                 <View style={styles.upperContainer}>
                     <View style={styles.upperContainerSuperContainer}>
                     </View>
@@ -143,6 +144,7 @@ class ListeningRoom extends Component {
                         justifyContent: 'center'
                     }}>
                         <ActivityIndicator size="large" color="#000000" />
+                        <Image style={{ resizeMode: "contain" }} source={require('./public/original.gif')} />
                     </View>
                 ) : (
                         <React.Fragment>
@@ -171,11 +173,11 @@ class ListeningRoom extends Component {
 
                                 <View style={styles.searchPanel}>
                                     <View style={styles.searchPanelSuper}>
-                                        <Text labelStyle={styles.textSmall} onPress={() => this.setState({ visible: false })} >Dismiss</Text>
-                                        <FormInput inputStyle={{ height: 40, width: 160, textAlign: "center", justifyContent: 'center' }} placeholder="search..." onChangeText={((searchVal) => this.setState({ searchVal }))} onSubmitEditing={() => this.search(this.state.searchVal)} />
+                                        <FormLabel labelStyle={styles.textSmall} onPress={() => this.setState({ visible: false })} >Dismiss</FormLabel>
+                                        <FormInput ref={input => this.input = input} inputStyle={{ height: 40, width: 160, textAlign: "center", justifyContent: 'center' }} placeholder="search..." onChangeText={((searchVal) => { this.setState({ searchVal }), this.search(searchVal) })} onSubmitEditing={() => this.search(this.state.searchVal)} />
                                         <Text style={styles.search} onPress={this.handleChange}>Search</Text>
                                     </View>
-                                    {this.state.searchResult == [] && <Image style={styles.lowerContainer} source={require('./public/original.gif')} />}
+                                    {/* {this.state.searchResult == [] && <Image style={styles.lowerContainer} source={require('./public/original.gif')} />} */}
                                     <ScrollView
                                         onTouchEnd={() => this.setState({ allowDragging: true })}
                                         onTouchCancel={() => this.setState({ allowDragging: true })}
@@ -202,7 +204,7 @@ class ListeningRoom extends Component {
                     )
                 }
 
-            </React.Fragment >
+            </View >
         )
     }
 }
