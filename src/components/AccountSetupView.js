@@ -28,7 +28,7 @@ export default class AccountSetupView extends Component {
     }
     handlePress = () => {
         const { navigate } = this.props.navigation;
-        navigate('ListeningRoomView', { userData: this.state.userData, resultOne: this.state.resultOne, resultTwo: this.state.resultTwo })
+        navigate('FindCreateListeningRoomView', {userData: this.props.navigation.state.params.userData})
     }
 
     render() {

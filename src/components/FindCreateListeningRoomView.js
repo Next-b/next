@@ -10,6 +10,9 @@ class FindCreateListeningRoom extends Component {
     this.state = {
       rooms: [],
     }
+
+    this.handlePress = this.handlePress.bind(this)
+    this.componentHandlePress = this.componentHandlePress.bind(this)
   }
   async retrieveRooms() {
     const roomsArray = []
@@ -24,10 +27,15 @@ class FindCreateListeningRoom extends Component {
 
   }
 
-  handlePress() {
-    // const {navigate} = this.props.navigation;
-    console.log(this.state.rooms)
+  handlePress () {
+    const {navigate} = this.props.navigation;
+    navigate('NewRoomCreateView', {userData: this.props.navigation.state.params.userData})
   }
+
+  componentHandlePress(){ 
+    const {navigate} = this.props.navigation;
+    navigate('ListeningRoomView', {})
+  }  
 
   componentDidMount() {
     this.retrieveRooms()
@@ -44,8 +52,8 @@ class FindCreateListeningRoom extends Component {
             <Text>Available Listening Rooms</Text>
             {this.state.rooms.map((room) =>
               (
-                <View key={room.key}>
-                  <RoomComponent room={room} />
+                <View key={room.key} >
+                  <RoomComponent room={room} onPress={this.componentHandlePress}/>
                 </View>)
             )}
           </View>
