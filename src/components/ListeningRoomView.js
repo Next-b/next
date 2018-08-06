@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableHighlight, Image, TouchableOpacity, Animated, ScrollView, TextInput, Keyboard, ActivityIndicator } from 'react-native';
-import { FormLabel, FormInput, Input } from "react-native-elements"
-import SortableListView from 'react-native-sortable-listview'
-import RowComponent from "./RowComponent"
+import { Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import firestore from "../../server/fireBase"
-import SlidingUpPanel from 'rn-sliding-up-panel'
-import qs from 'qs';
 import axios from "axios"
-import SearchResult from "./SearchResult"
 import styles from "./styles"
+import SongSlideUp from "./SongSlideUpView"
+
 
 
 class ListeningRoom extends Component {
@@ -35,12 +31,23 @@ class ListeningRoom extends Component {
         this.search = this.search.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.contract = this.contract.bind(this)
+        this.updateState = this.updateState.bind(this)
+        this.allowDraggingFalse = this.allowDraggingFalse.bind(this)
     }
     static navigationOptions = {
     };
     playPause() {
         //trigger play song in spotify api
         this.setState({ isPlaying: !this.state.isPlaying })
+    }
+    updateState(searchVal) {
+        this.setState({ searchVal })
+    }
+    allowDraggingFalse() {
+        this.setState({ allowDragging: false })
+    }
+    allowDraggingTrue() {
+        this.setState({ allowDragging: true })
     }
     nextSong() {
         //sends song data to spotify api
@@ -101,7 +108,6 @@ class ListeningRoom extends Component {
             resultTwo: this.props.navigation.state.params.resultTwo
         })
         setTimeout(() => this.setState({ loading: false }), 1000);
-
     }
     handleChange() {
         this.search(this.state.searchVal)
@@ -113,7 +119,6 @@ class ListeningRoom extends Component {
     contract() {
         this.setState({ visible: false })
     }
-
     render() {
         return (
             <View style={{ backgroundColor: "#fff", flex: 1 }} >
@@ -148,64 +153,7 @@ class ListeningRoom extends Component {
                         <Image style={{ resizeMode: "contain" }} source={require('./public/original.gif')} />
                     </View>
                 ) : (
-                        <React.Fragment>
-                            <SortableListView
-                                style={styles.lowerContainer}
-                                data={this.state.data}
-                                order={Object.keys(this.state.data)}
-                                onRowMoved={e => {
-                                    Object.keys(this.state.data).splice(e.to, 0, Object.keys(this.state.data).splice(e.from, 1)[0])
-                                    this.forceUpdate()
-                                }}
-                                renderRow={row => <RowComponent data={row} />}
-                            />
-                            <View style={{ flexDirection: "row", justifyContent: "flex-end", right: 15, bottom: 15, position: "absolute" }}>
-                                <TouchableHighlight onPress={this.expand}>
-                                    <Image style={styles.imagestyle} source={require('./public/plus.png')} />
-                                </TouchableHighlight>
-                            </View>
-
-                            <SlidingUpPanel
-                                visible={this.state.visible}
-                                allowDragging={this.state.allowDragging}
-                                showBackdrop={true}
-                                draggableRange={{ top: 600, bottom: 0 }}
-                                onRequestClose={() => this.setState({ visible: false })}>
-
-                                <View style={styles.searchPanel}>
-                                    <View style={styles.searchPanelSuper}>
-                                        <TouchableOpacity onPress={() => this.setState({ visible: false })}>
-                                            <FormLabel labelStyle={styles.textSmall}  >Dismiss</FormLabel>
-                                        </TouchableOpacity>
-                                        <FormInput ref={input => this.input = input} inputStyle={{ height: 40, width: 160, textAlign: "center", justifyContent: 'center' }} placeholder="search..." onChangeText={((searchVal) => { this.setState({ searchVal }), this.search(searchVal) })} onSubmitEditing={() => this.search(this.state.searchVal)} />
-                                        <TouchableOpacity onPress={this.handleChange}>
-                                            <Text style={styles.search} >Search</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    {/* {this.state.searchResult == [] && <Image style={styles.lowerContainer} source={require('./public/original.gif')} />} */}
-                                    <ScrollView
-                                        onTouchEnd={() => this.setState({ allowDragging: true })}
-                                        onTouchCancel={() => this.setState({ allowDragging: true })}
-                                        onTouchStart={() => this.setState({ allowDragging: false })}>
-                                        <View style={styles.searchPanelSub}>
-                                            {this.state.searchResult != [] && this.state.searchResult.map((result) =>
-                                                (
-                                                    <View key={result.key} style={styles.resultView}>
-                                                        <SearchResult refresh={this.retrieveData} contract={this.contract} key={result.name} result={result} />
-                                                    </View>
-                                                )
-                                            )}
-
-                                        </View>
-                                    </ScrollView>
-
-                                </View>
-
-
-
-
-                            </SlidingUpPanel>
-                        </React.Fragment>
+                        <SongSlideUp contract={this.contract} retrieveData={this.retrieveData} searchResult={this.state.searchResult} data={this.state.data} expand={this.expand} visible={this.state.visible} allowDragging={this.state.allowDragging} contract={this.contract} updateState={this.updateState} search={this.search} handleChange={this.handleChange} />
                     )
                 }
 
