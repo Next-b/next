@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { FormLabel, FormInput } from 'react-native-elements'
 import firestore from "../../server/fireBase"
+import styles from "./styles"
+
 
 export default class NewRoomCreateView extends Component {
   constructor() {

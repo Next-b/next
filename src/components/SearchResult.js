@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Image, TouchableOpacity } from 'react-native'
 import firestore from "../../server/fireBase"
+import styles from "./styles"
+
 
 
 export default class SearchResult extends Component {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements'
+import styles from "./styles"
 
 export default class AccountSetupView extends Component {
     constructor() {
@@ -35,7 +36,7 @@ export default class AccountSetupView extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <View style={styles.container}>
+                <View style={styles.authContainer}>
                     <Image style={styles.avatar}
                         source={{ uri: this.state.photo }} />
                     <FormLabel labelStyle={styles.textSmall} >Name</FormLabel>
@@ -51,43 +52,3 @@ export default class AccountSetupView extends Component {
         );
     }
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 8 / 10,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    lowerContainer: {
-        flex: 2 / 10,
-        backgroundColor: '#fff'
-    },
-    avatar: {
-        width: 130,
-        height: 130,
-        borderRadius: 63,
-        borderWidth: 2,
-        borderColor: "#000000",
-        marginBottom: 10,
-    },
-    text: {
-        marginTop: 20,
-        color: "#000000",
-        fontWeight: "bold",
-        fontSize: 30,
-        fontFamily: 'myriadPro',
-        textDecorationLine: "underline"
-    },
-    textSmall: {
-        marginTop: 20,
-        color: "#000000",
-        fontWeight: "bold",
-        fontSize: 15,
-        fontFamily: 'myriadPro',
-        textDecorationLine: "underline"
-    }
-});
-
-
