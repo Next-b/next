@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, ListView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ListView, TouchableHighlight, Image } from 'react-native'
 
 import RoomComponent from './RoomComponent'
 import firestore from "../../server/fireBase"
@@ -14,6 +14,9 @@ class FindCreateListeningRoom extends Component {
     this.handlePress = this.handlePress.bind(this)
     this.componentHandlePress = this.componentHandlePress.bind(this)
   }
+  static navigationOptions = {
+    header: null
+  };
   async retrieveRooms() {
     const roomsArray = []
     await firestore.collection("Rooms").get().then(roomList => {
@@ -34,6 +37,7 @@ class FindCreateListeningRoom extends Component {
 
   componentHandlePress() {
     const { navigate } = this.props.navigation;
+    console.log("pressed")
     navigate('ListeningRoomView', { resultTwo: this.props.navigation.state.params.resultTwo })
   }
 
@@ -45,18 +49,20 @@ class FindCreateListeningRoom extends Component {
   render() {
     return (
       <React.Fragment>
-        <View>
+        <View style={{ flex: 1, backgroundColor: "#fff" }}>
           <View>
-            <Text onPress={this.handlePress}>New Listening Room</Text>
-          </View>
-          <View>
-            <Text>Available Listening Rooms</Text>
+            <Text style={styles.text}>Available Listening Rooms</Text>
             {this.state.rooms.map((room) =>
               (
                 <View key={room.key} >
                   <RoomComponent room={room} onPress={this.componentHandlePress} />
                 </View>)
             )}
+          </View>
+          <View style={{ flexDirection: "row", justifyContent: "flex-end", right: 15, bottom: 15, position: "absolute" }}>
+            <TouchableHighlight onPress={this.handlePress}>
+              <Image style={styles.imagestyle} source={require('./public/plus.png')} />
+            </TouchableHighlight>
           </View>
         </View>
       </React.Fragment>
@@ -65,19 +71,22 @@ class FindCreateListeningRoom extends Component {
 }
 
 const styles = StyleSheet.create({
-  upperContainer: {
-    flex: 1 / 5,
-    backgroundColor: '#fff',
-  },
-  upperContainerSubContainer: {
-    flex: 1 / 2, flexDirection: "row", justifyContent: "flex-end"
-  },
-  upperContainerSuperContainer: {
-    flex: 1 / 2, justifyContent: "flex-start"
+  text: {
+    marginTop: 40,
+    color: "#000000",
+    fontWeight: "bold",
+    fontSize: 30,
+    fontFamily: 'myriadPro',
+    textDecorationLine: "underline"
+
   },
   lowerContainer: {
     flex: 1
-  }
+  },
+  imagestyle: {
+    width: 70,
+    height: 70,
+  },
 });
 
 export default FindCreateListeningRoom

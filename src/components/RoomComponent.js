@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Image } from 'react-native'
 
 export default class RoomComponent extends Component {
-  constructor(){
+  constructor() {
     super()
     this.handlePress = this.handlePress.bind(this)
   }
 
-  handlePress(){
+  handlePress() {
     this.props.onPress()
   }
 
@@ -25,7 +25,7 @@ export default class RoomComponent extends Component {
         // {...this.props.sortHandlers}
         >
           <View>
-            <Image style={{ width: 50, height: 50 }} source={{ uri: this.props.room.owner.image }}/>
+            <Image style={{ width: 50, height: 50 }} source={{ uri: this.props.room.owner.image }} />
             <View>
               <Text onPress={this.handlePress}>{this.props.room.roomName}</Text>
               <Text>7 Listeners</Text>
@@ -35,4 +35,5 @@ export default class RoomComponent extends Component {
       </View>
     )
   }
+
 }
