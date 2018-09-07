@@ -15,3 +15,4 @@ Next is a spotify integrated music queueing app. It allows friends to create or 
 
 ## Developers
 * **Alan Yoho** - [alandyoho](https://github.com/alandyoho)
+* **Ray Lee** - [raylee971227](https://github.com/raylee971227)
