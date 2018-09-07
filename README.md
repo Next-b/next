@@ -1,17 +1,18 @@
 
 # Next - A basic arcade game written in Swift
-![Alt Text](https://github.com/alandyoho/space-pirate/blob/master/assets/startScreen.GIF)
-![Alt Text](https://github.com/alandyoho/space-pirate/blob/master/assets/gamePlay.GIF)
-![Alt Text](https://github.com/alandyoho/space-pirate/blob/master/assets/gameOver.GIF)
+![Alt Text](https://github.com/Next-b/next/blob/master/src/components/public/createProfile.GIF)
+![Alt Text](https://github.com/Next-b/next/blob/master/src/components/public/addSong.GIF)
+![Alt Text](https://github.com/Next-b/next/blob/master/src/components/public/listeningRoom.GIF)
+![Alt Text](https://github.com/Next-b/next/blob/master/src/components/public/login.gif)
 
 Next is a spotify integrated music queueing app. It allows friends to create or join a shared "listening room," where they can collaborate on a playlist. Next was a group hackathon project. I was responsible for designing the UI/UX of the application as well as integrating the spotify web/connect api's.
 
 ## Built With
-![Alt Text](https://github.com/alandyoho/space-pirate/blob/master/assets/spacePirateStack.png)
+![Alt Text](https://github.com/Next-b/next/blob/master/src/components/public/nextStack.png)
 
-* [CocoaPods](https://cocoapods.org) - The mobile framework used
-* [Swift](https://developer.apple.com/swift/) - Backend Database
-* [SpriteKit](https://developer.apple.com/documentation/spritekit) - Processing payments
+* [JavaScript](https://www.javascript.com) - The primary language used
+* [React Native](https://facebook.github.io/react-native/) - The mobile framework used
+* [Spotify Web API](https://developer.spotify.com/documentation/web-api/) - The Spotify Web API used
 
 ## Developers
 * **Alan Yoho** - [alandyoho](https://github.com/alandyoho)
